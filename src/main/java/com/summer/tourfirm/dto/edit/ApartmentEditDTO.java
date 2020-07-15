@@ -16,6 +16,12 @@ public class ApartmentEditDTO {
     @JsonProperty("amountOfBeds")
     private Integer amountOfBeds;
 
+    @JsonProperty("amountOfRooms")
+    private Integer amountOfRooms;
+
+    @JsonProperty("ifBathroomExist")
+    private Boolean ifBathroomExist;
+
     public Long getId() {
         return id;
     }
@@ -46,5 +52,21 @@ public class ApartmentEditDTO {
 
     public void setAmountOfBeds(Integer amountOfBeds) {
         this.amountOfBeds = amountOfBeds;
+    }
+
+    public Integer getAmountOfRooms() {
+        return amountOfRooms;
+    }
+
+    public void setAmountOfRooms(Integer amountOfRooms) {
+        this.amountOfRooms = amountOfRooms;
+    }
+
+    public Boolean getIfBathroomExist() {
+        return ifBathroomExist;
+    }
+
+    public void setIfBathroomExist(Boolean ifBathroomExist) {
+        this.ifBathroomExist = ifBathroomExist;
     }
 }

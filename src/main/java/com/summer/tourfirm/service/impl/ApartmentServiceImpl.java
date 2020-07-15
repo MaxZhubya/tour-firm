@@ -3,6 +3,8 @@ package com.summer.tourfirm.service.impl;
 import com.summer.tourfirm.dto.ApartmentDTO;
 import com.summer.tourfirm.dto.edit.ApartmentEditDTO;
 import com.summer.tourfirm.entity.Apartment;
+import com.summer.tourfirm.entity.LiveBuilding;
+import com.summer.tourfirm.exception.DataValidationException;
 import com.summer.tourfirm.repository.ApartmentRepository;
 import com.summer.tourfirm.service.IApartmentService;
 import com.summer.tourfirm.service.ILiveBuildingService;
@@ -18,8 +20,8 @@ import java.util.stream.Collectors;
 @Transactional
 public class ApartmentServiceImpl implements IApartmentService {
 
-//    @Autowired
-//    private ILiveBuildingService liveBuildingService;
+    @Autowired
+    private ILiveBuildingService liveBuildingService;
 
     @Autowired
     private ApartmentRepository repository;
@@ -50,12 +52,19 @@ public class ApartmentServiceImpl implements IApartmentService {
         setInputData(apartment, apartmentEditDTO);
 
         return ApartmentDTO.makeDTO(repository.save(apartment));
-        // khaskdhsdknfjksnd
     }
 
 
     @Override
     public ApartmentDTO update(ApartmentEditDTO apartmentEditDTO) {
+        if (Objects.nonNull(apartmentEditDTO.getId()))
+            throw new DataValidationException("ID can not be null!");
+
+
+
+
+
+
         return null;
     }
 
@@ -84,7 +93,6 @@ public class ApartmentServiceImpl implements IApartmentService {
     }
 
 
-
     private void setInputData(final Apartment apartment, ApartmentEditDTO apartmentEditDTO) {
 
         // Set Price
@@ -94,33 +102,18 @@ public class ApartmentServiceImpl implements IApartmentService {
         apartment.setAmountOfBeds(apartmentEditDTO.getAmountOfBeds());
 
         // Set AmountOfRooms
-        //apartment.setAmountOfRooms(apartmentEditDTO.get());
+        apartment.setAmountOfRooms(apartmentEditDTO.getAmountOfRooms());
+
+        // Set IfBathroomExist
+        apartment.setIfBathroomExist(apartmentEditDTO.getIfBathroomExist());
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    private void clearRelatedData(Apartment apartment) {
+        LiveBuilding building = apartment.getBuilding();
+        if (Objects.nonNull(building)) {
+            building.setApartments(null);
+            liveBuildingService.save(building);
+        }
+    }
 
 }
