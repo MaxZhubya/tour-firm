@@ -50,6 +50,7 @@ public class ApartmentServiceImpl implements IApartmentService {
         setInputData(apartment, apartmentEditDTO);
 
         return ApartmentDTO.makeDTO(repository.save(apartment));
+        // khaskdhsdknfjksnd
     }
 
 
