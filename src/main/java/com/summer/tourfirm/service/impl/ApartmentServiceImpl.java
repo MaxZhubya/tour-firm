@@ -4,6 +4,7 @@ import com.summer.tourfirm.dto.ApartmentDTO;
 import com.summer.tourfirm.dto.edit.ApartmentEditDTO;
 import com.summer.tourfirm.entity.Apartment;
 import com.summer.tourfirm.entity.LiveBuilding;
+import com.summer.tourfirm.exception.DataNotFoundException;
 import com.summer.tourfirm.exception.DataValidationException;
 import com.summer.tourfirm.repository.ApartmentRepository;
 import com.summer.tourfirm.service.IApartmentService;
@@ -44,7 +45,11 @@ public class ApartmentServiceImpl implements IApartmentService {
 
     @Override
     public ApartmentDTO create(ApartmentEditDTO apartmentEditDTO) {
-        Apartment apartment = new Apartment();
+        Apartment apartment = new Apartment()
+                .setPrice(apartmentEditDTO.getPrice())
+                .setAmountOfBeds(apartmentEditDTO.getAmountOfBeds())
+                .setAmountOfRooms(apartmentEditDTO.getAmountOfRooms())
+                .setIfBathroomExist(apartmentEditDTO.getIfBathroomExist());
 
         apartment = repository.save(apartment);
 
@@ -60,36 +65,43 @@ public class ApartmentServiceImpl implements IApartmentService {
         if (Objects.nonNull(apartmentEditDTO.getId()))
             throw new DataValidationException("ID can not be null!");
 
+        Apartment apartment = getEntity(apartmentEditDTO.getId());
 
+        clearRelatedData(apartment);
 
+        setInputData(apartment, apartmentEditDTO);
 
-
-
-        return null;
+        return ApartmentDTO.makeDTO(repository.save(apartment));
     }
 
 
     @Override
     public void delete(Long id) {
+        Apartment apartment = getEntity(id);
 
+        // Remove current Area from all
+        clearRelatedData(apartment);
+
+        repository.delete(apartment);
     }
 
 
     @Override
     public Apartment save(Apartment apartment) {
-        return null;
+        return repository.save(apartment);
     }
 
 
     @Override
     public Apartment getEntity(Long id) {
-        return null;
+        return repository.findById(id).orElseThrow(() -> new DataNotFoundException("Apartment with id: "
+                + id.toString() + " is not existed"));
     }
 
 
     @Override
     public List<Apartment> getEntitiesByIds(List<Long> ids) {
-        return null;
+        return repository.findAllById(ids);
     }
 
 
