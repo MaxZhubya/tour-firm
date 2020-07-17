@@ -47,7 +47,9 @@ public class CountryServiceImpl implements ICountryService {
 
     @Override
     public CountryDTO create(CountryEditDTO countryEditDTO) {
-        Country country = new Country();
+        Country country = new Country()
+                .setAbleForEntering(countryEditDTO.getAbleForEntering())
+                .setEnterWays(countryEditDTO.getEnterWays());
 
         country = repository.save(country);
 
@@ -117,21 +119,19 @@ public class CountryServiceImpl implements ICountryService {
 
         // Set EnterWays
         if (!countryEditDTO.getEnterWays().isEmpty()) {
-           safdasfda
-
+            if (country.getEnterWays().size() != countryEditDTO.getEnterWays().size())
+                throw new DataValidationException("Wrong types!");
+           country.setEnterWays(countryEditDTO.getEnterWays());
         }
 
 
     }
 
     private void clearRelatedData(Country country) {
+        List<ResortCity> cities = country.getCities();
         if (!country.getCities().isEmpty()) {
-
+            country.getCities().removeAll(cities);
         }
     }
-
-
-
-
 
 }

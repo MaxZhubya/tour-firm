@@ -26,6 +26,9 @@ public class LiveBuildingEditDTO {
     @JsonProperty("ifParkingExist")
     private Boolean ifParkingExist;
 
+    @JsonProperty("distanceToBeach")
+    private Integer distanceToBeach;
+
     public Long getId() {
         return id;
     }
@@ -72,5 +75,13 @@ public class LiveBuildingEditDTO {
 
     public void setIfParkingExist(Boolean ifParkingExist) {
         this.ifParkingExist = ifParkingExist;
+    }
+
+    public Integer getDistanceToBeach() {
+        return distanceToBeach;
+    }
+
+    public void setDistanceToBeach(Integer distanceToBeach) {
+        this.distanceToBeach = distanceToBeach;
     }
 }

@@ -10,6 +10,9 @@ public class ResortAreaEditDTO {
     @JsonProperty("id")
     private Long id;
 
+    @JsonProperty("cityId")
+    private Long cityId;
+
     @JsonProperty("buildingIds")
     private List<Long> buildingIds = new ArrayList<>();
 
@@ -22,6 +25,14 @@ public class ResortAreaEditDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Long cityId) {
+        this.cityId = cityId;
     }
 
     public List<Long> getBuildingIds() {

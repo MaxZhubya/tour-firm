@@ -14,6 +14,7 @@ public interface IResortAreaService {
     ResortAreaDTO update(ResortAreaEditDTO resortAreaEditDTO);   // Update
     void delete(Long id);   // Delete
     ResortArea save(ResortArea resortArea);
+    List<ResortArea> save(List<ResortArea> areas);
     ResortArea getEntity(Long id);
     List<ResortArea> getEntitiesByIds(List<Long> ids);
 }

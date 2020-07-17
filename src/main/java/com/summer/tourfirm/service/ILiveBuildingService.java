@@ -14,6 +14,7 @@ public interface ILiveBuildingService {
     LiveBuildingDTO update(LiveBuildingEditDTO liveBuildingEditDTO);   // Update
     void delete(Long id);   // Delete
     LiveBuilding save(LiveBuilding liveBuilding);
+    List<LiveBuilding> save(List<LiveBuilding> buildings);
     LiveBuilding getEntity(Long id);
     List<LiveBuilding> getEntitiesByIds(List<Long> ids);
 }

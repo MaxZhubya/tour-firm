@@ -91,6 +91,11 @@ public class ApartmentServiceImpl implements IApartmentService {
         return repository.save(apartment);
     }
 
+    @Override
+    public List<Apartment> save(List<Apartment> apartments) {
+        return repository.saveAll(apartments);
+    }
+
 
     @Override
     public Apartment getEntity(Long id) {
@@ -123,7 +128,7 @@ public class ApartmentServiceImpl implements IApartmentService {
     private void clearRelatedData(Apartment apartment) {
         LiveBuilding building = apartment.getBuilding();
         if (Objects.nonNull(building)) {
-            building.setApartments(null);
+            building.getApartments().remove(apartment);
             liveBuildingService.save(building);
         }
     }

@@ -14,6 +14,7 @@ public interface IApartmentService {
     ApartmentDTO update(ApartmentEditDTO apartmentEditDTO);   // Update
     void delete(Long id);   // Delete
     Apartment save(Apartment apartment);
+    List<Apartment> save(List<Apartment> apartments);
     Apartment getEntity(Long id);
     List<Apartment> getEntitiesByIds(List<Long> ids);
 }

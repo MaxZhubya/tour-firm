@@ -1,6 +1,8 @@
 package com.summer.tourfirm.dto.edit;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.summer.tourfirm.entity.enums.EntranceWay;
+import com.summer.tourfirm.entity.enums.TravelingWay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,9 @@ public class ResortCityEditDTO {
     @JsonProperty("id")
     private Long id;
 
+    @JsonProperty("countryId")
+    private Long countryId;
+
     @JsonProperty("areaIds")
     private List<Long> areaIds = new ArrayList<>();
 
@@ -17,10 +22,10 @@ public class ResortCityEditDTO {
     private Boolean isAbleForEntering;
 
     @JsonProperty("entranceWays")
-    private List<Enum> entranceWays = new ArrayList<>();
+    private List<EntranceWay> entranceWays = new ArrayList<>();
 
     @JsonProperty("travelingWays")
-    private List<Enum> travelingWays = new ArrayList<>();
+    private List<TravelingWay> travelingWays = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -28,6 +33,14 @@ public class ResortCityEditDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCountryId() {
+        return countryId;
+    }
+
+    public void setCountryId(Long countryId) {
+        this.countryId = countryId;
     }
 
     public List<Long> getAreaIds() {
@@ -46,19 +59,19 @@ public class ResortCityEditDTO {
         isAbleForEntering = ableForEntering;
     }
 
-    public List<Enum> getEntranceWays() {
+    public List<EntranceWay> getEntranceWays() {
         return entranceWays;
     }
 
-    public void setEntranceWays(List<Enum> entranceWays) {
+    public void setEntranceWays(List<EntranceWay> entranceWays) {
         this.entranceWays = entranceWays;
     }
 
-    public List<Enum> getTravelingWays() {
+    public List<TravelingWay> getTravelingWays() {
         return travelingWays;
     }
 
-    public void setTravelingWays(List<Enum> travelingWays) {
+    public void setTravelingWays(List<TravelingWay> travelingWays) {
         this.travelingWays = travelingWays;
     }
 }
