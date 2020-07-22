@@ -4,13 +4,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.summer.tourfirm.entity.Country;
-import com.summer.tourfirm.entity.enums.EntranceWay;
+import com.summer.tourfirm.entity.enums.Entrance;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @JsonPropertyOrder({"id", "isAbleForEntering", "cities", "enterWays"})
@@ -23,13 +22,13 @@ public class CountryDTO {
     @JsonProperty("isAbleForEntering")
     private Boolean isAbleForEntering;
 
-    @JsonInclude(NON_EMPTY)
+    @JsonInclude(NON_NULL)
     @JsonProperty("cities")
     private List<ResortCityDTO> cities = new ArrayList<>();
 
-    @JsonInclude(NON_EMPTY)
+    @JsonInclude(NON_NULL)
     @JsonProperty("enterWays")
-    private List<EntranceWay> enterWays = new ArrayList<>();
+    private List<Entrance> enterWays = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -58,11 +57,11 @@ public class CountryDTO {
         return this;
     }
 
-    public List<EntranceWay> getEnterWays() {
+    public List<Entrance> getEnterWays() {
         return enterWays;
     }
 
-    public CountryDTO setEnterWays(List<EntranceWay> enterWays) {
+    public CountryDTO setEnterWays(List<Entrance> enterWays) {
         this.enterWays = enterWays;
         return this;
     }

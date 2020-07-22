@@ -22,7 +22,7 @@ public class ResortAreaDTO {
     @JsonProperty("city")
     private ResortCityDTO city;
 
-    @JsonInclude(NON_EMPTY)
+    @JsonInclude(NON_NULL)
     @JsonProperty("buildings")
     private List<LiveBuildingDTO> buildings = new ArrayList<>();
 

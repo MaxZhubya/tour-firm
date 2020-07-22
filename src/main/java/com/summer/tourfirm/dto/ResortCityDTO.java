@@ -4,14 +4,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.summer.tourfirm.entity.ResortCity;
-import com.summer.tourfirm.entity.enums.EntranceWay;
-import com.summer.tourfirm.entity.enums.TravelingWay;
+import com.summer.tourfirm.entity.enums.Entrance;
+import com.summer.tourfirm.entity.enums.Traveling;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @JsonPropertyOrder({"id", "isAbleForEntering", "entranceWays", "travelingWays", "country", "areas"})
@@ -24,7 +23,7 @@ public class ResortCityDTO {
     @JsonProperty("country")
     private CountryDTO country;
 
-    @JsonInclude(NON_EMPTY)
+    @JsonInclude(NON_NULL)
     @JsonProperty("areas")
     private List<ResortAreaDTO> areas = new ArrayList<>();
 
@@ -32,13 +31,13 @@ public class ResortCityDTO {
     @JsonProperty("isAbleForEntering")
     private Boolean isAbleForEntering;
 
-    @JsonInclude(NON_EMPTY)
+    @JsonInclude(NON_NULL)
     @JsonProperty("entranceWays")
-    private List<EntranceWay> entranceWays = new ArrayList<>();
+    private List<Entrance> entranceWays = new ArrayList<>();
 
-    @JsonInclude(NON_EMPTY)
+    @JsonInclude(NON_NULL)
     @JsonProperty("travelingWays")
-    private List<TravelingWay> travelingWays = new ArrayList<>();
+    private List<Traveling> travelingWays = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -76,20 +75,20 @@ public class ResortCityDTO {
         return this;
     }
 
-    public List<EntranceWay> getEntranceWays() {
+    public List<Entrance> getEntranceWays() {
         return entranceWays;
     }
 
-    public ResortCityDTO setEntranceWays(List<EntranceWay> entranceWays) {
+    public ResortCityDTO setEntranceWays(List<Entrance> entranceWays) {
         this.entranceWays = entranceWays;
         return this;
     }
 
-    public List<TravelingWay> getTravelingWays() {
+    public List<Traveling> getTravelingWays() {
         return travelingWays;
     }
 
-    public ResortCityDTO setTravelingWays(List<TravelingWay> travelingWays) {
+    public ResortCityDTO setTravelingWays(List<Traveling> travelingWays) {
         this.travelingWays = travelingWays;
         return this;
     }

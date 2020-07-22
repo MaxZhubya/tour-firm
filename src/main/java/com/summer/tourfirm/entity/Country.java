@@ -1,6 +1,7 @@
 package com.summer.tourfirm.entity;
 
-import com.summer.tourfirm.entity.enums.EntranceWay;
+import com.summer.tourfirm.entity.enums.Entrance;
+import com.summer.tourfirm.entity.types.EntranceType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -26,12 +27,12 @@ public class Country {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private List<EntranceWay> enterWays = new ArrayList<>();
+    private List<EntranceType> enterTypes = new ArrayList<>();
 
     public Country() {
     }
 
-    public Country(List<ResortCity> cities, Boolean isAbleForEntering, List<EntranceWay> enterWays) {
+    public Country(List<ResortCity> cities, Boolean isAbleForEntering, List<Entrance> enterWays) {
         this.cities = cities;
         this.isAbleForEntering = isAbleForEntering;
         this.enterWays = enterWays;
@@ -64,11 +65,11 @@ public class Country {
         return this;
     }
 
-    public List<EntranceWay> getEnterWays() {
+    public List<Entrance> getEnterWays() {
         return enterWays;
     }
 
-    public Country setEnterWays(List<EntranceWay> enterWays) {
+    public Country setEnterWays(List<Entrance> enterWays) {
         this.enterWays = enterWays;
         return this;
     }

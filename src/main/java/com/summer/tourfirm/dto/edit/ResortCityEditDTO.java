@@ -1,8 +1,8 @@
 package com.summer.tourfirm.dto.edit;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.summer.tourfirm.entity.enums.EntranceWay;
-import com.summer.tourfirm.entity.enums.TravelingWay;
+import com.summer.tourfirm.entity.enums.Entrance;
+import com.summer.tourfirm.entity.enums.Traveling;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +22,10 @@ public class ResortCityEditDTO {
     private Boolean isAbleForEntering;
 
     @JsonProperty("entranceWays")
-    private List<EntranceWay> entranceWays = new ArrayList<>();
+    private List<Entrance> entranceWays = new ArrayList<>();
 
     @JsonProperty("travelingWays")
-    private List<TravelingWay> travelingWays = new ArrayList<>();
+    private List<Traveling> travelingWays = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -59,19 +59,19 @@ public class ResortCityEditDTO {
         isAbleForEntering = ableForEntering;
     }
 
-    public List<EntranceWay> getEntranceWays() {
+    public List<Entrance> getEntranceWays() {
         return entranceWays;
     }
 
-    public void setEntranceWays(List<EntranceWay> entranceWays) {
+    public void setEntranceWays(List<Entrance> entranceWays) {
         this.entranceWays = entranceWays;
     }
 
-    public List<TravelingWay> getTravelingWays() {
+    public List<Traveling> getTravelingWays() {
         return travelingWays;
     }
 
-    public void setTravelingWays(List<TravelingWay> travelingWays) {
+    public void setTravelingWays(List<Traveling> travelingWays) {
         this.travelingWays = travelingWays;
     }
 }

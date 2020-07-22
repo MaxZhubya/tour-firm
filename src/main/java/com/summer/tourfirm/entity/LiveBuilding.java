@@ -1,9 +1,8 @@
 package com.summer.tourfirm.entity;
 
-import com.summer.tourfirm.entity.enums.BuildingType;
+import com.summer.tourfirm.entity.enums.Building;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +23,12 @@ public class LiveBuilding {
     private ResortArea area;
 
     @NotNull
-    @OneToMany(mappedBy = "building")
+    @OneToMany(mappedBy = "building", cascade = CascadeType.ALL)
     private List<Apartment> apartments = new ArrayList<>();
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private BuildingType type;
+    private Building type;
 
     private Integer availableApartmentCount;
 
@@ -42,7 +41,7 @@ public class LiveBuilding {
     public LiveBuilding() {
     }
 
-    public LiveBuilding(List<Apartment> apartments, BuildingType type, Integer availableApartmentCount,
+    public LiveBuilding(List<Apartment> apartments, Building type, Integer availableApartmentCount,
                         Boolean ifPoolExist, Boolean ifParkingExist, Integer distanceToBeach) {
         this.apartments = apartments;
         this.type = type;
@@ -79,11 +78,11 @@ public class LiveBuilding {
         return this;
     }
 
-    public BuildingType getType() {
+    public Building getType() {
         return type;
     }
 
-    public LiveBuilding setType(BuildingType type) {
+    public LiveBuilding setType(Building type) {
         this.type = type;
         return this;
     }

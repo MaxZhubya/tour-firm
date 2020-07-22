@@ -1,7 +1,7 @@
 package com.summer.tourfirm.dto.edit;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.summer.tourfirm.entity.enums.EntranceWay;
+import com.summer.tourfirm.entity.enums.Entrance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class CountryEditDTO {
     private List<Long> cityIds = new ArrayList<>();
 
     @JsonProperty("enterWays")
-    private List<EntranceWay> enterWays = new ArrayList<>();
+    private List<Entrance> enterWays = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -44,11 +44,11 @@ public class CountryEditDTO {
         this.cityIds = cityIds;
     }
 
-    public List<EntranceWay> getEnterWays() {
+    public List<Entrance> getEnterWays() {
         return enterWays;
     }
 
-    public void setEnterWays(List<EntranceWay> enterWays) {
+    public void setEnterWays(List<Entrance> enterWays) {
         this.enterWays = enterWays;
     }
 }

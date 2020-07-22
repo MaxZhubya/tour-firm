@@ -4,13 +4,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.summer.tourfirm.entity.LiveBuilding;
-import com.summer.tourfirm.entity.enums.BuildingType;
+import com.summer.tourfirm.entity.enums.Building;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @JsonPropertyOrder({"id", "type", "availableApartmentCount", "ifPoolExist", "ifParkingExist", "distanceToBeach", "area", "apartments"})
@@ -23,13 +22,13 @@ public class LiveBuildingDTO {
     @JsonProperty("area")
     private ResortAreaDTO area;
 
-    @JsonInclude(NON_EMPTY)
+    @JsonInclude(NON_NULL)
     @JsonProperty("apartments")
     private List<ApartmentDTO> apartments = new ArrayList<>();
 
-    @JsonInclude(NON_EMPTY)
+    @JsonInclude(NON_NULL)
     @JsonProperty("type")
-    private BuildingType type;
+    private Building type;
 
     @JsonInclude(NON_NULL)
     @JsonProperty("availableApartmentCount")
@@ -74,11 +73,11 @@ public class LiveBuildingDTO {
         return this;
     }
 
-    public BuildingType getType() {
+    public Building getType() {
         return type;
     }
 
-    public LiveBuildingDTO setType(BuildingType type) {
+    public LiveBuildingDTO setType(Building type) {
         this.type = type;
         return this;
     }

@@ -1,5 +1,5 @@
 package com.summer.tourfirm.entity.enums;
 
-public enum TravelingWay {
+public enum Traveling {
     ON_FOOT, TAXI, BUS, BOAT
 }

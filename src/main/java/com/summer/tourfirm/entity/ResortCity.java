@@ -1,7 +1,7 @@
 package com.summer.tourfirm.entity;
 
-import com.summer.tourfirm.entity.enums.EntranceWay;
-import com.summer.tourfirm.entity.enums.TravelingWay;
+import com.summer.tourfirm.entity.enums.Entrance;
+import com.summer.tourfirm.entity.enums.Traveling;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -31,17 +31,17 @@ public class ResortCity {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private List<EntranceWay> entranceWays = new ArrayList<>();
+    private List<Entrance> entranceWays = new ArrayList<>();
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private List<TravelingWay> travelingWays = new ArrayList<>();
+    private List<Traveling> travelingWays = new ArrayList<>();
 
     public ResortCity() {
     }
 
-    public ResortCity(List<ResortArea> areas, Boolean isAbleForEntering, List<EntranceWay> entranceWays,
-                      List<TravelingWay> travelingWays) {
+    public ResortCity(List<ResortArea> areas, Boolean isAbleForEntering, List<Entrance> entranceWays,
+                      List<Traveling> travelingWays) {
         this.areas = areas;
         this.isAbleForEntering = isAbleForEntering;
         this.entranceWays = entranceWays;
@@ -84,20 +84,20 @@ public class ResortCity {
         return this;
     }
 
-    public List<EntranceWay> getEntranceWays() {
+    public List<Entrance> getEntranceWays() {
         return entranceWays;
     }
 
-    public ResortCity setEntranceWays(List<EntranceWay> entranceWays) {
+    public ResortCity setEntranceWays(List<Entrance> entranceWays) {
         this.entranceWays = entranceWays;
         return this;
     }
 
-    public List<TravelingWay> getTravelingWays() {
+    public List<Traveling> getTravelingWays() {
         return travelingWays;
     }
 
-    public ResortCity setTravelingWays(List<TravelingWay> travelingWays) {
+    public ResortCity setTravelingWays(List<Traveling> travelingWays) {
         this.travelingWays = travelingWays;
         return this;
     }

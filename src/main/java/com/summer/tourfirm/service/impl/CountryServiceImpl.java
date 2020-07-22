@@ -4,7 +4,6 @@ import com.summer.tourfirm.dto.CountryDTO;
 import com.summer.tourfirm.dto.edit.CountryEditDTO;
 import com.summer.tourfirm.entity.Country;
 import com.summer.tourfirm.entity.ResortCity;
-import com.summer.tourfirm.entity.enums.EntranceWay;
 import com.summer.tourfirm.exception.DataNotFoundException;
 import com.summer.tourfirm.exception.DataValidationException;
 import com.summer.tourfirm.repository.CountryRepository;
