@@ -48,7 +48,7 @@ public class CountryServiceImpl implements ICountryService {
     public CountryDTO create(CountryEditDTO countryEditDTO) {
         Country country = new Country()
                 .setAbleForEntering(countryEditDTO.getAbleForEntering())
-                .setEnterWays(countryEditDTO.getEnterWays());
+                .setEnterTypes(countryEditDTO.getEnterTypesIds());
 
         country = repository.save(country);
 
@@ -117,10 +117,10 @@ public class CountryServiceImpl implements ICountryService {
         country.setAbleForEntering(countryEditDTO.getAbleForEntering());
 
         // Set EnterWays
-        if (!countryEditDTO.getEnterWays().isEmpty()) {
-            if (country.getEnterWays().size() != countryEditDTO.getEnterWays().size())
+        if (!countryEditDTO.getEnterTypesIds().isEmpty()) {
+            if (country.getEnterTypes().size() != countryEditDTO.getEnterTypesIds().size())
                 throw new DataValidationException("Wrong types!");
-           country.setEnterWays(countryEditDTO.getEnterWays());
+           country.setEnterTypes(countryEditDTO.getEnterTypesIds());
         }
 
 

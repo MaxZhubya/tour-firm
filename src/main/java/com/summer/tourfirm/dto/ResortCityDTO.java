@@ -32,12 +32,12 @@ public class ResortCityDTO {
     private Boolean isAbleForEntering;
 
     @JsonInclude(NON_NULL)
-    @JsonProperty("entranceWays")
-    private List<Entrance> entranceWays = new ArrayList<>();
+    @JsonProperty("entranceTypes")
+    private List<EntranceTypeDTO> entranceTypes = new ArrayList<>();
 
     @JsonInclude(NON_NULL)
-    @JsonProperty("travelingWays")
-    private List<Traveling> travelingWays = new ArrayList<>();
+    @JsonProperty("travelingTypes")
+    private List<TravelingTypeDTO> travelingTypes = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -75,21 +75,21 @@ public class ResortCityDTO {
         return this;
     }
 
-    public List<Entrance> getEntranceWays() {
-        return entranceWays;
+    public List<EntranceTypeDTO> getEntranceTypes() {
+        return entranceTypes;
     }
 
-    public ResortCityDTO setEntranceWays(List<Entrance> entranceWays) {
-        this.entranceWays = entranceWays;
+    public ResortCityDTO setEntranceTypes(List<EntranceTypeDTO> entranceTypes) {
+        this.entranceTypes = entranceTypes;
         return this;
     }
 
-    public List<Traveling> getTravelingWays() {
-        return travelingWays;
+    public List<TravelingTypeDTO> getTravelingTypes() {
+        return travelingTypes;
     }
 
-    public ResortCityDTO setTravelingWays(List<Traveling> travelingWays) {
-        this.travelingWays = travelingWays;
+    public ResortCityDTO setTravelingTypes(List<TravelingTypeDTO> travelingTypes) {
+        this.travelingTypes = travelingTypes;
         return this;
     }
 
@@ -99,8 +99,8 @@ public class ResortCityDTO {
                 .setAbleForEntering(city.isAbleForEntering())
 
                 // Enum Lists
-                .setEntranceWays(city.getEntranceWays())
-                .setTravelingWays(city.getTravelingWays())
+                .setEntranceTypes(city.getEntranceTypes())
+                .setTravelingTypes(city.getTravelingTypes())
 
                 .setCountry(CountryDTO.makeSimpleDTO(city.getCountry()))
 
@@ -114,7 +114,7 @@ public class ResortCityDTO {
                 .setAbleForEntering(city.isAbleForEntering())
 
                 // Enum Lists
-                .setEntranceWays(city.getEntranceWays())
-                .setTravelingWays(city.getTravelingWays()) : null;
+                .setEntranceTypes(city.getEntranceTypes())
+                .setTravelingTypes(city.getTravelingTypes()) : null;
     }
 }

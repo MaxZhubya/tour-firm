@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.summer.tourfirm.entity.Country;
 import com.summer.tourfirm.entity.enums.Entrance;
+import com.summer.tourfirm.entity.types.EntranceType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
-@JsonPropertyOrder({"id", "isAbleForEntering", "cities", "enterWays"})
+@JsonPropertyOrder({"id", "isAbleForEntering", "cities", "enterTypes"})
 public class CountryDTO {
 
     @JsonProperty("id")
@@ -27,8 +28,8 @@ public class CountryDTO {
     private List<ResortCityDTO> cities = new ArrayList<>();
 
     @JsonInclude(NON_NULL)
-    @JsonProperty("enterWays")
-    private List<Entrance> enterWays = new ArrayList<>();
+    @JsonProperty("enterTypes")
+    private List<EntranceType> enterTypes = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -57,12 +58,12 @@ public class CountryDTO {
         return this;
     }
 
-    public List<Entrance> getEnterWays() {
-        return enterWays;
+    public List<EntranceType> getEnterTypes() {
+        return enterTypes;
     }
 
-    public CountryDTO setEnterWays(List<Entrance> enterWays) {
-        this.enterWays = enterWays;
+    public CountryDTO setEnterTypes(List<EntranceType> enterTypes) {
+        this.enterTypes = enterTypes;
         return this;
     }
 
@@ -72,7 +73,7 @@ public class CountryDTO {
                 .setAbleForEntering(country.isAbleForEntering())
 
                 // Массив enum
-                .setEnterWays(country.getEnterWays())
+                .setEnterTypes(country.getEnterTypes())
 
                 .setCities(country.getCities().stream()
                     .map(ResortCityDTO::makeSimpleDTO).collect(Collectors.toList()));
@@ -82,7 +83,7 @@ public class CountryDTO {
         return (country != null) ? new CountryDTO()
                 .setId(country.getId())
                 .setAbleForEntering(country.isAbleForEntering())
-                .setEnterWays(country.getEnterWays()) : null;
+                .setEnterTypes(country.getEnterTypes()) : null;
     }
 
 }

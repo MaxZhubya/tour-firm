@@ -51,7 +51,7 @@ public class LiveBuildingServiceImpl implements ILiveBuildingService {
     @Override
     public LiveBuildingDTO create(LiveBuildingEditDTO liveBuildingEditDTO) {
         LiveBuilding liveBuilding = new LiveBuilding()
-                .setType(liveBuildingEditDTO.getType())
+                .setType(liveBuildingEditDTO.getTypeId())
                 .setIfPoolExist(liveBuildingEditDTO.getIfPoolExist())
                 .setIfParkingExist(liveBuildingEditDTO.getIfParkingExist())
                 .setDistanceToBeach(liveBuildingEditDTO.getDistanceToBeach());
@@ -125,7 +125,7 @@ public class LiveBuildingServiceImpl implements ILiveBuildingService {
 
         building.setAvailableApartmentCount(buildingEditDTO.getApartmentIds().size());
 
-        building.setType(buildingEditDTO.getType());
+        building.setType(buildingEditDTO.getTypeId());
         building.setIfPoolExist(buildingEditDTO.getIfPoolExist());
         building.setIfParkingExist(buildingEditDTO.getIfParkingExist());
         building.setDistanceToBeach(buildingEditDTO.getDistanceToBeach());

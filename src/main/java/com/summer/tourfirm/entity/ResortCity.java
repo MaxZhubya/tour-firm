@@ -1,7 +1,7 @@
 package com.summer.tourfirm.entity;
 
-import com.summer.tourfirm.entity.enums.Entrance;
-import com.summer.tourfirm.entity.enums.Traveling;
+import com.summer.tourfirm.entity.types.EntranceType;
+import com.summer.tourfirm.entity.types.TravelingType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -24,28 +24,42 @@ public class ResortCity {
     private Country country;
 
     @NotNull
-    @OneToMany(mappedBy = "city")
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     private List<ResortArea> areas = new ArrayList<>();
 
     private Boolean isAbleForEntering;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private List<Entrance> entranceWays = new ArrayList<>();
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    private List<Traveling> travelingWays = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "resortCity_enterType",
+            joinColumns = {
+                    @JoinColumn(name = "city_id", referencedColumnName = "id")},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "enterType_id", referencedColumnName = "id")
+            })
+    private List<EntranceType> entranceTypes = new ArrayList<>();
+
+
+    @NotNull
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "resortCity_travelType",
+            joinColumns = {
+                    @JoinColumn(name = "country_id", referencedColumnName = "id")},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "travelType_id", referencedColumnName = "id")
+            })
+    private List<TravelingType> travelingTypes = new ArrayList<>();
 
     public ResortCity() {
     }
 
-    public ResortCity(List<ResortArea> areas, Boolean isAbleForEntering, List<Entrance> entranceWays,
-                      List<Traveling> travelingWays) {
+    public ResortCity(List<ResortArea> areas, Boolean isAbleForEntering, List<EntranceType> entranceTypes,
+                      List<TravelingType> travelingTypes) {
         this.areas = areas;
         this.isAbleForEntering = isAbleForEntering;
-        this.entranceWays = entranceWays;
-        this.travelingWays = travelingWays;
+        this.entranceTypes = entranceTypes;
+        this.travelingTypes = travelingTypes;
     }
 
     public Long getId() {
@@ -84,21 +98,21 @@ public class ResortCity {
         return this;
     }
 
-    public List<Entrance> getEntranceWays() {
-        return entranceWays;
+    public List<EntranceType> getEntranceTypes() {
+        return entranceTypes;
     }
 
-    public ResortCity setEntranceWays(List<Entrance> entranceWays) {
-        this.entranceWays = entranceWays;
+    public ResortCity setEntranceTypes(List<EntranceType> entranceTypes) {
+        this.entranceTypes = entranceTypes;
         return this;
     }
 
-    public List<Traveling> getTravelingWays() {
-        return travelingWays;
+    public List<TravelingType> getTravelingTypes() {
+        return travelingTypes;
     }
 
-    public ResortCity setTravelingWays(List<Traveling> travelingWays) {
-        this.travelingWays = travelingWays;
+    public ResortCity setTravelingTypes(List<TravelingType> travelingTypes) {
+        this.travelingTypes = travelingTypes;
         return this;
     }
 

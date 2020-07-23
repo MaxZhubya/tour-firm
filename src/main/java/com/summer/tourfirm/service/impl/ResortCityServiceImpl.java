@@ -53,8 +53,8 @@ public class ResortCityServiceImpl implements IResortCityService {
     public ResortCityDTO create(ResortCityEditDTO resortCityEditDTO) {
         ResortCity city = new ResortCity()
                 .setAbleForEntering(resortCityEditDTO.getAbleForEntering())
-                .setEntranceWays(resortCityEditDTO.getEntranceWays())
-                .setTravelingWays(resortCityEditDTO.getTravelingWays());
+                .setEntranceTypes(resortCityEditDTO.getEntranceTypes())
+                .setTravelingTypes(resortCityEditDTO.getTravelingTypes());
 
         city = repository.save(city);
 
@@ -123,16 +123,16 @@ public class ResortCityServiceImpl implements IResortCityService {
             city.setAreas(areas);
         }
 
-        if (!cityEditDTO.getEntranceWays().isEmpty()) {
-            if (city.getEntranceWays().size() != cityEditDTO.getEntranceWays().size())
+        if (!cityEditDTO.getEntranceTypes().isEmpty()) {
+            if (city.getEntranceTypes().size() != cityEditDTO.getEntranceTypes().size())
                 throw new DataValidationException("Wrong types!");
-            city.setEntranceWays(cityEditDTO.getEntranceWays());
+            city.setEntranceTypes(cityEditDTO.getEntranceTypes());
         }
 
-        if (!cityEditDTO.getTravelingWays().isEmpty()) {
-            if (city.getTravelingWays().size() != cityEditDTO.getTravelingWays().size())
+        if (!cityEditDTO.getTravelingTypes().isEmpty()) {
+            if (city.getTravelingTypes().size() != cityEditDTO.getTravelingTypes().size())
                 throw new DataValidationException("Wrong types!");
-            city.setTravelingWays(cityEditDTO.getTravelingWays());
+            city.setTravelingTypes(cityEditDTO.getTravelingTypes());
         }
     }
 

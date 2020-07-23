@@ -13,13 +13,13 @@ public class BuildingType {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String buildingType;
+    private String type;
 
     public BuildingType() {
     }
 
-    public BuildingType(String buildingType) {
-        this.buildingType = buildingType;
+    public BuildingType(String type) {
+        this.type = type;
     }
 
     public Long getId() {
@@ -31,12 +31,12 @@ public class BuildingType {
         return this;
     }
 
-    public String getBuildingType() {
-        return buildingType;
+    public String getType() {
+        return type;
     }
 
-    public BuildingType setBuildingType(String buildingType) {
-        this.buildingType = buildingType;
+    public BuildingType setType(String type) {
+        this.type = type;
         return this;
     }
 

@@ -22,7 +22,7 @@ public class ResortArea {
     private ResortCity city;
 
     @NotNull
-    @OneToMany(mappedBy = "area")
+    @OneToMany(mappedBy = "area", cascade = CascadeType.ALL)
     private List<LiveBuilding> buildings = new ArrayList<>();
 
     private String definition;

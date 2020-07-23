@@ -62,8 +62,8 @@ public class ApartmentServiceImpl implements IApartmentService {
 
     @Override
     public ApartmentDTO update(ApartmentEditDTO apartmentEditDTO) {
-        if (Objects.nonNull(apartmentEditDTO.getId()))
-            throw new DataValidationException("ID can not be null!");
+        if (Objects.isNull(apartmentEditDTO.getId()))
+            throw new DataValidationException("ID can't be null!");
 
         Apartment apartment = getEntity(apartmentEditDTO.getId());
 

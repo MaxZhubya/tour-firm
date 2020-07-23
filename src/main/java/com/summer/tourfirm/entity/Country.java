@@ -1,6 +1,5 @@
 package com.summer.tourfirm.entity;
 
-import com.summer.tourfirm.entity.enums.Entrance;
 import com.summer.tourfirm.entity.types.EntranceType;
 
 import javax.persistence.*;
@@ -20,22 +19,28 @@ public class Country {
     private Long id;
 
     @NotNull
-    @OneToMany(mappedBy = "country")
+    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
     private List<ResortCity> cities = new ArrayList<>();
 
     private Boolean isAbleForEntering;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "country_enterType",
+            joinColumns = {
+                @JoinColumn(name = "country_id", referencedColumnName = "id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "enterType_id", referencedColumnName = "id")
+    })
     private List<EntranceType> enterTypes = new ArrayList<>();
 
     public Country() {
     }
 
-    public Country(List<ResortCity> cities, Boolean isAbleForEntering, List<Entrance> enterWays) {
+    public Country(List<ResortCity> cities, Boolean isAbleForEntering, List<EntranceType> enterTypes) {
         this.cities = cities;
         this.isAbleForEntering = isAbleForEntering;
-        this.enterWays = enterWays;
+        this.enterTypes = enterTypes;
     }
 
     public Long getId() {
@@ -65,12 +70,12 @@ public class Country {
         return this;
     }
 
-    public List<Entrance> getEnterWays() {
-        return enterWays;
+    public List<EntranceType> getEnterTypes() {
+        return enterTypes;
     }
 
-    public Country setEnterWays(List<Entrance> enterWays) {
-        this.enterWays = enterWays;
+    public Country setEnterTypes(List<EntranceType> enterTypes) {
+        this.enterTypes = enterTypes;
         return this;
     }
 

@@ -13,13 +13,13 @@ public class TravelingType {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String travelingType;
+    private String type;
 
     public TravelingType() {
     }
 
-    public TravelingType(String travelingType) {
-        this.travelingType = travelingType;
+    public TravelingType(String type) {
+        this.type = type;
     }
 
     public Long getId() {
@@ -31,12 +31,12 @@ public class TravelingType {
         return this;
     }
 
-    public String getTravelingType() {
-        return travelingType;
+    public String getType() {
+        return type;
     }
 
-    public TravelingType setTravelingType(String travelingType) {
-        this.travelingType = travelingType;
+    public TravelingType setType(String type) {
+        this.type = type;
         return this;
     }
 

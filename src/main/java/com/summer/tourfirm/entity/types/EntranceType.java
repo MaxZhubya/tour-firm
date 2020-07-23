@@ -13,13 +13,13 @@ public class EntranceType {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String enterType;
+    private String type;
 
     public EntranceType() {
     }
 
-    public EntranceType(String enterType) {
-        this.enterType = enterType;
+    public EntranceType(String type) {
+        this.type = type;
     }
 
     public Long getId() {
@@ -31,12 +31,12 @@ public class EntranceType {
         return this;
     }
 
-    public String getEnterType() {
-        return enterType;
+    public String getType() {
+        return type;
     }
 
-    public EntranceType setEnterType(String enterType) {
-        this.enterType = enterType;
+    public EntranceType setType(String type) {
+        this.type = type;
         return this;
     }
 
