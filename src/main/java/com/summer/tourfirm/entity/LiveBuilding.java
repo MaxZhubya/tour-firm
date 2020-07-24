@@ -1,7 +1,6 @@
 package com.summer.tourfirm.entity;
 
-import com.summer.tourfirm.entity.enums.Building;
-import com.summer.tourfirm.entity.types.BuildingType;
+import com.summer.tourfirm.entity.enums.BuildingEnum;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -28,8 +27,8 @@ public class LiveBuilding {
     private List<Apartment> apartments = new ArrayList<>();
 
     @NotNull
-    // missing statement
-    private BuildingType type;
+    @Enumerated(EnumType.STRING)
+    private BuildingEnum type;
 
     private Integer availableApartmentCount;
 
@@ -42,7 +41,7 @@ public class LiveBuilding {
     public LiveBuilding() {
     }
 
-    public LiveBuilding(List<Apartment> apartments, BuildingType type, Integer availableApartmentCount,
+    public LiveBuilding(List<Apartment> apartments, BuildingEnum type, Integer availableApartmentCount,
                         Boolean ifPoolExist, Boolean ifParkingExist, Integer distanceToBeach) {
         this.apartments = apartments;
         this.type = type;
@@ -79,11 +78,11 @@ public class LiveBuilding {
         return this;
     }
 
-    public BuildingType getType() {
+    public BuildingEnum getType() {
         return type;
     }
 
-    public LiveBuilding setType(BuildingType type) {
+    public LiveBuilding setType(BuildingEnum type) {
         this.type = type;
         return this;
     }

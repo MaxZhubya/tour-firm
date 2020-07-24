@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.summer.tourfirm.entity.ResortCity;
-import com.summer.tourfirm.entity.enums.Entrance;
-import com.summer.tourfirm.entity.enums.Traveling;
 
 import java.util.ArrayList;
 import java.util.List;

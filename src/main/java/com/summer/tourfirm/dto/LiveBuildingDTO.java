@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.summer.tourfirm.entity.LiveBuilding;
-import com.summer.tourfirm.entity.enums.Building;
+import com.summer.tourfirm.entity.enums.BuildingEnum;
 import com.summer.tourfirm.entity.types.BuildingType;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class LiveBuildingDTO {
 
     @JsonInclude(NON_NULL)
     @JsonProperty("type")
-    private BuildingType type;
+    private BuildingEnum type;
 
     @JsonInclude(NON_NULL)
     @JsonProperty("availableApartmentCount")
@@ -74,11 +74,11 @@ public class LiveBuildingDTO {
         return this;
     }
 
-    public BuildingType getType() {
+    public BuildingEnum getType() {
         return type;
     }
 
-    public LiveBuildingDTO setType(BuildingType type) {
+    public LiveBuildingDTO setType(BuildingEnum type) {
         this.type = type;
         return this;
     }

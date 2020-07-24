@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.summer.tourfirm.entity.Country;
-import com.summer.tourfirm.entity.enums.Entrance;
 import com.summer.tourfirm.entity.types.EntranceType;
 
 import java.util.ArrayList;
@@ -40,12 +39,12 @@ public class CountryDTO {
         return this;
     }
 
-    public Boolean getAbleForEntering() {
+    public Boolean getIsAbleForEntering() {
         return isAbleForEntering;
     }
 
-    public CountryDTO setAbleForEntering(Boolean ableForEntering) {
-        isAbleForEntering = ableForEntering;
+    public CountryDTO setIsAbleForEntering(Boolean isAbleForEntering) {
+        this.isAbleForEntering = isAbleForEntering;
         return this;
     }
 
@@ -70,7 +69,7 @@ public class CountryDTO {
     public static CountryDTO makeDTO(Country country) {
         return new CountryDTO()
                 .setId(country.getId())
-                .setAbleForEntering(country.isAbleForEntering())
+                .setIsAbleForEntering(country.isAbleForEntering())
 
                 // Массив enum
                 .setEnterTypes(country.getEnterTypes())
@@ -82,7 +81,7 @@ public class CountryDTO {
     public static CountryDTO makeSimpleDTO(Country country) {
         return (country != null) ? new CountryDTO()
                 .setId(country.getId())
-                .setAbleForEntering(country.isAbleForEntering())
+                .setIsAbleForEntering(country.isAbleForEntering())
                 .setEnterTypes(country.getEnterTypes()) : null;
     }
 

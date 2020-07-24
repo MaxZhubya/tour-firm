@@ -1,8 +1,6 @@
 package com.summer.tourfirm.dto.edit;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.summer.tourfirm.entity.enums.Entrance;
-import com.summer.tourfirm.entity.enums.Traveling;
 import com.summer.tourfirm.entity.types.EntranceType;
 import com.summer.tourfirm.entity.types.TravelingType;
 

@@ -121,7 +121,7 @@ public class ResortAreaServiceImpl implements IResortAreaService {
         if (!areaEditDTO.getBuildingIds().isEmpty()) {
             List<LiveBuilding> buildings = buildingService.getEntitiesByIds(areaEditDTO.getBuildingIds());
             if (buildings.size() != areaEditDTO.getBuildingIds().size())
-                throw new DataValidationException("Building ids are wrong!");
+                throw new DataValidationException("BuildingEnum ids are wrong!");
             buildings.forEach(building -> building.setArea(area));
             area.setBuildings(buildings);
         }
