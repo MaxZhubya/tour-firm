@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
-@JsonPropertyOrder({"id", "isAbleForEntering", "entranceWays", "travelingWays", "country", "areas"})
+@JsonPropertyOrder({"id", "isAbleForEntering", "entranceTypes", "travelingTypes", "country", "areas"})
 public class ResortCityDTO {
 
     @JsonProperty("id")
@@ -99,8 +99,11 @@ public class ResortCityDTO {
                 .setAbleForEntering(city.isAbleForEntering())
 
                 // Enum Lists
-                .setEntranceTypes(city.getEntranceTypes())
-                .setTravelingTypes(city.getTravelingTypes())
+                .setEntranceTypes(city.getEntranceTypes().stream()
+                    .map(EntranceTypeDTO::makeSimpleDTO).collect(Collectors.toList()))
+
+                .setTravelingTypes(city.getTravelingTypes().stream()
+                    .map(TravelingTypeDTO::makeSimpleDTO).collect(Collectors.toList()))
 
                 .setCountry(CountryDTO.makeSimpleDTO(city.getCountry()))
 
@@ -114,7 +117,10 @@ public class ResortCityDTO {
                 .setAbleForEntering(city.isAbleForEntering())
 
                 // Enum Lists
-                .setEntranceTypes(city.getEntranceTypes())
-                .setTravelingTypes(city.getTravelingTypes()) : null;
+                .setEntranceTypes(city.getEntranceTypes().stream()
+                    .map(EntranceTypeDTO::makeSimpleDTO).collect(Collectors.toList()))
+
+                .setTravelingTypes(city.getTravelingTypes().stream()
+                    .map(TravelingTypeDTO::makeSimpleDTO).collect(Collectors.toList())) : null;
     }
 }
