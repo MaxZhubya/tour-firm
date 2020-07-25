@@ -28,12 +28,12 @@ public class CountryEditDTO {
         this.id = id;
     }
 
-    public Boolean getAbleForEntering() {
+    public Boolean getIsAbleForEntering() {
         return isAbleForEntering;
     }
 
-    public void setAbleForEntering(Boolean ableForEntering) {
-        isAbleForEntering = ableForEntering;
+    public void setIsAbleForEntering(Boolean isAbleForEntering) {
+        this.isAbleForEntering = isAbleForEntering;
     }
 
     public List<Long> getCityIds() {

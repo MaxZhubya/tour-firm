@@ -89,12 +89,12 @@ public class ResortCity {
         return this;
     }
 
-    public Boolean isAbleForEntering() {
+    public Boolean getIsAbleForEntering() {
         return isAbleForEntering;
     }
 
-    public ResortCity setAbleForEntering(boolean ableForEntering) {
-        isAbleForEntering = ableForEntering;
+    public ResortCity setIsAbleForEntering(boolean isAbleForEntering) {
+        this.isAbleForEntering = isAbleForEntering;
         return this;
     }
 

@@ -52,7 +52,7 @@ public class ResortCityServiceImpl implements IResortCityService {
     @Override
     public ResortCityDTO create(ResortCityEditDTO resortCityEditDTO) {
         ResortCity city = new ResortCity()
-                .setAbleForEntering(resortCityEditDTO.getAbleForEntering())
+                .setIsAbleForEntering(resortCityEditDTO.getIsAbleForEntering())
                 .setEntranceTypes(resortCityEditDTO.getEntranceTypes())
                 .setTravelingTypes(resortCityEditDTO.getTravelingTypes());
 
@@ -109,7 +109,7 @@ public class ResortCityServiceImpl implements IResortCityService {
 
 
     private void setInputData(final ResortCity city, ResortCityEditDTO cityEditDTO) {
-        city.setAbleForEntering(cityEditDTO.getAbleForEntering());
+        city.setIsAbleForEntering(cityEditDTO.getIsAbleForEntering());
 
         if (Objects.nonNull(cityEditDTO.getCountryId())) {
             city.setCountry(countryService.getEntity(cityEditDTO.getCountryId()));

@@ -64,12 +64,12 @@ public class ResortCityDTO {
         return this;
     }
 
-    public Boolean getAbleForEntering() {
+    public Boolean getIsAbleForEntering() {
         return isAbleForEntering;
     }
 
-    public ResortCityDTO setAbleForEntering(Boolean ableForEntering) {
-        isAbleForEntering = ableForEntering;
+    public ResortCityDTO setIsAbleForEntering(Boolean isAbleForEntering) {
+        this.isAbleForEntering = isAbleForEntering;
         return this;
     }
 
@@ -94,7 +94,7 @@ public class ResortCityDTO {
     public static ResortCityDTO makeDTO(ResortCity city) {
         return new ResortCityDTO()
                 .setId(city.getId())
-                .setAbleForEntering(city.isAbleForEntering())
+                .setIsAbleForEntering(city.getIsAbleForEntering())
 
                 // Enum Lists
                 .setEntranceTypes(city.getEntranceTypes().stream()
@@ -112,7 +112,7 @@ public class ResortCityDTO {
     public static ResortCityDTO makeSimpleDTO(ResortCity city) {
         return (city != null) ? new ResortCityDTO()
                 .setId(city.getId())
-                .setAbleForEntering(city.isAbleForEntering())
+                .setIsAbleForEntering(city.getIsAbleForEntering())
 
                 // Enum Lists
                 .setEntranceTypes(city.getEntranceTypes().stream()

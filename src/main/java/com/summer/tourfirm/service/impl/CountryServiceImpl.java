@@ -47,7 +47,7 @@ public class CountryServiceImpl implements ICountryService {
     @Override
     public CountryDTO create(CountryEditDTO countryEditDTO) {
         Country country = new Country()
-                .setAbleForEntering(countryEditDTO.getAbleForEntering())
+                .setAbleForEntering(countryEditDTO.getIsAbleForEntering())
                 .setEnterTypes(countryEditDTO.getEnterTypesIds());
 
         country = repository.save(country);
@@ -114,7 +114,7 @@ public class CountryServiceImpl implements ICountryService {
         }
 
         // Set Able ForEntering
-        country.setAbleForEntering(countryEditDTO.getAbleForEntering());
+        country.setAbleForEntering(countryEditDTO.getIsAbleForEntering());
 
         // Set EnterWays
         if (!countryEditDTO.getEnterTypesIds().isEmpty()) {
