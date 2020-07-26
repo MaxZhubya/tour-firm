@@ -10,9 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
-@JsonPropertyOrder({"id", "isAbleForEntering", "cities", "enterTypes"})
+@JsonPropertyOrder({"id", "isAbleForEntering", "name", "cities", "enterTypes"})
 public class CountryDTO {
 
     @JsonProperty("id")
@@ -21,6 +22,10 @@ public class CountryDTO {
     @JsonInclude(NON_NULL)
     @JsonProperty("isAbleForEntering")
     private Boolean isAbleForEntering;
+
+    @JsonInclude(NON_EMPTY)
+    @JsonProperty("name")
+    private String name;
 
     @JsonInclude(NON_NULL)
     @JsonProperty("cities")
@@ -48,6 +53,15 @@ public class CountryDTO {
         return this;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public CountryDTO setName(String name) {
+        this.name = name;
+        return this;
+    }
+
     public List<ResortCityDTO> getCities() {
         return cities;
     }
@@ -70,6 +84,7 @@ public class CountryDTO {
         return new CountryDTO()
                 .setId(country.getId())
                 .setIsAbleForEntering(country.isAbleForEntering())
+                .setName(country.getName())
 
                 // Массив enum
                 .setEnterTypes(country.getEnterTypes())
@@ -82,6 +97,7 @@ public class CountryDTO {
         return (country != null) ? new CountryDTO()
                 .setId(country.getId())
                 .setIsAbleForEntering(country.isAbleForEntering())
+                .setName(country.getName())
                 .setEnterTypes(country.getEnterTypes()) : null;
     }
 

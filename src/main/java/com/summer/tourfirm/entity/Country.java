@@ -3,6 +3,7 @@ package com.summer.tourfirm.entity;
 import com.summer.tourfirm.entity.types.EntranceType;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +25,11 @@ public class Country {
 
     private Boolean isAbleForEntering;
 
+    @NotEmpty
+    private String name;
+
     @NotNull
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "country_enterType",
             joinColumns = {
                 @JoinColumn(name = "country_id", referencedColumnName = "id")},
@@ -37,9 +41,10 @@ public class Country {
     public Country() {
     }
 
-    public Country(List<ResortCity> cities, Boolean isAbleForEntering, List<EntranceType> enterTypes) {
+    public Country(List<ResortCity> cities, Boolean isAbleForEntering, String name, List<EntranceType> enterTypes) {
         this.cities = cities;
         this.isAbleForEntering = isAbleForEntering;
+        this.name = name;
         this.enterTypes = enterTypes;
     }
 
@@ -67,6 +72,15 @@ public class Country {
 
     public Country setAbleForEntering(boolean ableForEntering) {
         isAbleForEntering = ableForEntering;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Country setName(String name) {
+        this.name = name;
         return this;
     }
 

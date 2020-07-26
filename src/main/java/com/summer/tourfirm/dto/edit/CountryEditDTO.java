@@ -14,11 +14,14 @@ public class CountryEditDTO {
     @JsonProperty("isAbleForEntering")
     private Boolean isAbleForEntering;
 
+    @JsonProperty("name")
+    private String name;
+
     @JsonProperty("cityIds")
     private List<Long> cityIds = new ArrayList<>();
 
     @JsonProperty("enterTypesIds")
-    private List<EntranceType> enterTypesIds = new ArrayList<>();
+    private List<Long> enterTypesIds = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -36,6 +39,14 @@ public class CountryEditDTO {
         this.isAbleForEntering = isAbleForEntering;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public List<Long> getCityIds() {
         return cityIds;
     }
@@ -44,11 +55,11 @@ public class CountryEditDTO {
         this.cityIds = cityIds;
     }
 
-    public List<EntranceType> getEnterTypesIds() {
+    public List<Long> getEnterTypesIds() {
         return enterTypesIds;
     }
 
-    public void setEnterTypesIds(List<EntranceType> enterTypesIds) {
+    public void setEnterTypesIds(List<Long> enterTypesIds) {
         this.enterTypesIds = enterTypesIds;
     }
 }

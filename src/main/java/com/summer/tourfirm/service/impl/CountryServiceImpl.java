@@ -1,13 +1,16 @@
 package com.summer.tourfirm.service.impl;
 
 import com.summer.tourfirm.dto.CountryDTO;
+import com.summer.tourfirm.dto.EntranceTypeDTO;
 import com.summer.tourfirm.dto.edit.CountryEditDTO;
 import com.summer.tourfirm.entity.Country;
 import com.summer.tourfirm.entity.ResortCity;
+import com.summer.tourfirm.entity.types.EntranceType;
 import com.summer.tourfirm.exception.DataNotFoundException;
 import com.summer.tourfirm.exception.DataValidationException;
 import com.summer.tourfirm.repository.CountryRepository;
 import com.summer.tourfirm.service.ICountryService;
+import com.summer.tourfirm.service.IEntranceTypeService;
 import com.summer.tourfirm.service.IResortCityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,9 @@ public class CountryServiceImpl implements ICountryService {
 
     @Autowired
     private IResortCityService cityService;
+
+    @Autowired
+    private IEntranceTypeService typeService;
 
     @Autowired
     private CountryRepository repository;
@@ -47,8 +53,7 @@ public class CountryServiceImpl implements ICountryService {
     @Override
     public CountryDTO create(CountryEditDTO countryEditDTO) {
         Country country = new Country()
-                .setAbleForEntering(countryEditDTO.getIsAbleForEntering())
-                .setEnterTypes(countryEditDTO.getEnterTypesIds());
+                .setAbleForEntering(countryEditDTO.getIsAbleForEntering());
 
         country = repository.save(country);
 
@@ -118,9 +123,12 @@ public class CountryServiceImpl implements ICountryService {
 
         // Set EnterWays
         if (!countryEditDTO.getEnterTypesIds().isEmpty()) {
+            List<EntranceType> typeList = typeService.getEntitiesByIds(countryEditDTO.getEnterTypesIds());
             if (country.getEnterTypes().size() != countryEditDTO.getEnterTypesIds().size())
-                throw new DataValidationException("Wrong types!");
-           country.setEnterTypes(countryEditDTO.getEnterTypesIds());
+                throw new DataValidationException("EntranceType ids are wrong!");
+
+            // Didn't finish it yet
+            // Нужно сделать тоже что и в Country во всех остальных
         }
 
 
