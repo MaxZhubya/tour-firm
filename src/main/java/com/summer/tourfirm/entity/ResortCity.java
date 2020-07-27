@@ -24,14 +24,14 @@ public class ResortCity {
     private Country country;
 
     @NotNull
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "city", orphanRemoval = true)
     private List<ResortArea> areas = new ArrayList<>();
 
     private Boolean isAbleForEntering;
 
 
     @NotNull
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "resortCity_enterType",
             joinColumns = {
                     @JoinColumn(name = "city_id", referencedColumnName = "id")},
@@ -42,7 +42,7 @@ public class ResortCity {
 
 
     @NotNull
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "resortCity_travelType",
             joinColumns = {
                     @JoinColumn(name = "country_id", referencedColumnName = "id")},

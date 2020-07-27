@@ -71,7 +71,7 @@ public class LiveBuildingServiceImpl implements ILiveBuildingService {
 
         LiveBuilding liveBuilding = getEntity(liveBuildingEditDTO.getId());
 
-        clearRelatedData(liveBuilding);
+        // clearRelatedData(liveBuilding);
 
         setInputData(liveBuilding, liveBuildingEditDTO);
 
@@ -82,9 +82,6 @@ public class LiveBuildingServiceImpl implements ILiveBuildingService {
     @Override
     public void delete(Long id) {
         LiveBuilding liveBuilding = getEntity(id);
-
-        clearRelatedData(liveBuilding);
-
         repository.delete(liveBuilding);
     }
 
@@ -119,8 +116,9 @@ public class LiveBuildingServiceImpl implements ILiveBuildingService {
             List<Apartment> apartments = apartmentService.getEntitiesByIds(buildingEditDTO.getApartmentIds());
             if(apartments.size() != buildingEditDTO.getApartmentIds().size())
                 throw new DataValidationException("Apartment ids are wrong!");
-            apartments.forEach(apartment -> apartment.setBuilding(building));
+            // apartments.forEach(apartment -> apartment.setBuilding(building));
             building.setApartments(apartments);
+            apartmentService.save(apartments);
         }
 
         building.setAvailableApartmentCount(buildingEditDTO.getApartmentIds().size());
@@ -141,10 +139,9 @@ public class LiveBuildingServiceImpl implements ILiveBuildingService {
         building.setArea(null);
 
         List<Apartment> apartments = building.getApartments();
-        if (Objects.nonNull(apartments))
-            building.getApartments().forEach(apartment -> apartment.setBuilding(null));
-            apartmentService.save(apartments);
-
+        building.getApartments().forEach(apartment -> apartment.setBuilding(null));
+        apartmentService.save(apartments);
+        building.getApartments().clear();
     }
 
 }

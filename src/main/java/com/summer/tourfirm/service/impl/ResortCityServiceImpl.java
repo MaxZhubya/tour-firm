@@ -8,9 +8,7 @@ import com.summer.tourfirm.entity.ResortCity;
 import com.summer.tourfirm.exception.DataNotFoundException;
 import com.summer.tourfirm.exception.DataValidationException;
 import com.summer.tourfirm.repository.ResortCityRepository;
-import com.summer.tourfirm.service.ICountryService;
-import com.summer.tourfirm.service.IResortAreaService;
-import com.summer.tourfirm.service.IResortCityService;
+import com.summer.tourfirm.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +26,12 @@ public class ResortCityServiceImpl implements IResortCityService {
 
     @Autowired
     private IResortAreaService areaService;
+
+    @Autowired
+    private IEntranceTypeService entranceTypeService;
+
+    @Autowired
+    private ITravelingTypeService travelingTypeService;
 
     @Autowired
     private ResortCityRepository repository;
@@ -53,8 +57,10 @@ public class ResortCityServiceImpl implements IResortCityService {
     public ResortCityDTO create(ResortCityEditDTO resortCityEditDTO) {
         ResortCity city = new ResortCity()
                 .setIsAbleForEntering(resortCityEditDTO.getIsAbleForEntering())
-                .setEntranceTypes(resortCityEditDTO.getEntranceTypes())
-                .setTravelingTypes(resortCityEditDTO.getTravelingTypes());
+
+                .setEntranceTypes(entranceTypeService.getEntitiesByIds(resortCityEditDTO.getEntranceTypesIds()))
+
+                .setTravelingTypes(travelingTypeService.getEntitiesByIds(resortCityEditDTO.getTravelingTypesIds()));
 
         city = repository.save(city);
 
@@ -123,16 +129,16 @@ public class ResortCityServiceImpl implements IResortCityService {
             city.setAreas(areas);
         }
 
-        if (!cityEditDTO.getEntranceTypes().isEmpty()) {
-            if (city.getEntranceTypes().size() != cityEditDTO.getEntranceTypes().size())
+        if (!cityEditDTO.getEntranceTypesIds().isEmpty()) {
+            if (city.getEntranceTypes().size() != cityEditDTO.getEntranceTypesIds().size())
                 throw new DataValidationException("Wrong types!");
-            city.setEntranceTypes(cityEditDTO.getEntranceTypes());
+            city.setEntranceTypes(entranceTypeService.getEntitiesByIds(cityEditDTO.getEntranceTypesIds()));
         }
 
-        if (!cityEditDTO.getTravelingTypes().isEmpty()) {
-            if (city.getTravelingTypes().size() != cityEditDTO.getTravelingTypes().size())
+        if (!cityEditDTO.getTravelingTypesIds().isEmpty()) {
+            if (city.getTravelingTypes().size() != cityEditDTO.getTravelingTypesIds().size())
                 throw new DataValidationException("Wrong types!");
-            city.setTravelingTypes(cityEditDTO.getTravelingTypes());
+            city.setTravelingTypes(travelingTypeService.getEntitiesByIds(cityEditDTO.getTravelingTypesIds()));
         }
     }
 

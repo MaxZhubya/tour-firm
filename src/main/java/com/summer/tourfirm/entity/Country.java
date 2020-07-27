@@ -20,7 +20,7 @@ public class Country {
     private Long id;
 
     @NotNull
-    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "country", orphanRemoval = true)
     private List<ResortCity> cities = new ArrayList<>();
 
     private Boolean isAbleForEntering;

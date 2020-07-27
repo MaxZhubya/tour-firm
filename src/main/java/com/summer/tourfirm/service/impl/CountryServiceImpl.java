@@ -28,7 +28,7 @@ public class CountryServiceImpl implements ICountryService {
     private IResortCityService cityService;
 
     @Autowired
-    private IEntranceTypeService typeService;
+    private IEntranceTypeService entranceTypeService;
 
     @Autowired
     private CountryRepository repository;
@@ -123,12 +123,13 @@ public class CountryServiceImpl implements ICountryService {
 
         // Set EnterWays
         if (!countryEditDTO.getEnterTypesIds().isEmpty()) {
-            List<EntranceType> typeList = typeService.getEntitiesByIds(countryEditDTO.getEnterTypesIds());
+            //List<EntranceType> typeList = typeService.getEntitiesByIds(countryEditDTO.getEnterTypesIds());
             if (country.getEnterTypes().size() != countryEditDTO.getEnterTypesIds().size())
                 throw new DataValidationException("EntranceType ids are wrong!");
 
+            country.setEnterTypes(entranceTypeService.getEntitiesByIds(countryEditDTO.getEnterTypesIds()));
+
             // Didn't finish it yet
-            // Нужно сделать тоже что и в Country во всех остальных
         }
 
 

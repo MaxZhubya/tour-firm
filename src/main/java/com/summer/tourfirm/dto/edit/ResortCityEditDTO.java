@@ -21,11 +21,11 @@ public class ResortCityEditDTO {
     @JsonProperty("isAbleForEntering")
     private Boolean isAbleForEntering;
 
-    @JsonProperty("entranceTypes")
-    private List<EntranceType> entranceTypes = new ArrayList<>();
+    @JsonProperty("entranceTypeIds")
+    private List<Long> entranceTypeIds = new ArrayList<>();
 
-    @JsonProperty("travelingTypes")
-    private List<TravelingType> travelingTypes = new ArrayList<>();
+    @JsonProperty("travelingTypeIds")
+    private List<Long> travelingTypeIds = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -59,19 +59,19 @@ public class ResortCityEditDTO {
         this.isAbleForEntering = isAbleForEntering;
     }
 
-    public List<EntranceType> getEntranceTypes() {
-        return entranceTypes;
+    public List<Long> getEntranceTypesIds() {
+        return entranceTypeIds;
     }
 
-    public void setEntranceTypes(List<EntranceType> entranceTypes) {
-        this.entranceTypes = entranceTypes;
+    public void setEntranceTypesIds(List<Long> entranceTypeIds) {
+        this.entranceTypeIds = entranceTypeIds;
     }
 
-    public List<TravelingType> getTravelingTypes() {
-        return travelingTypes;
+    public List<Long> getTravelingTypesIds() {
+        return travelingTypeIds;
     }
 
-    public void setTravelingTypes(List<TravelingType> travelingTypes) {
-        this.travelingTypes = travelingTypes;
+    public void setTravelingTypesIds(List<Long> travelingTypeIds) {
+        this.travelingTypeIds = travelingTypeIds;
     }
 }
