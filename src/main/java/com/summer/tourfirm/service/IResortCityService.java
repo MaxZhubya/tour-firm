@@ -16,4 +16,12 @@ public interface IResortCityService {
     ResortCity save(ResortCity resortCity);
     ResortCity getEntity(Long id);
     List<ResortCity> getEntitiesByIds(List<Long> ids);
+
+    /* EntranceType methods */
+    ResortCityDTO addEntranceType(Long id, List<Long> entranceTypeIds);
+    void deleteEntranceType(Long id, Long typeId);
+
+    /* TravelingType methods */
+    ResortCityDTO addTravelingType(Long id, List<Long> travelingTypeIds);
+    void deleteTravelingType(Long id, Long typeId);
 }

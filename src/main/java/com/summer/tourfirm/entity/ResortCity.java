@@ -4,6 +4,7 @@ import com.summer.tourfirm.entity.types.EntranceType;
 import com.summer.tourfirm.entity.types.TravelingType;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,9 @@ public class ResortCity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotEmpty
+    private String name;
+
     @ManyToOne
     @JoinColumn(name = "country_id", referencedColumnName = "id")
     private Country country;
@@ -29,7 +33,6 @@ public class ResortCity {
 
     private Boolean isAbleForEntering;
 
-
     @NotNull
     @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "resortCity_enterType",
@@ -38,8 +41,7 @@ public class ResortCity {
             inverseJoinColumns = {
                     @JoinColumn(name = "enterType_id", referencedColumnName = "id")
             })
-    private List<EntranceType> entranceTypes = new ArrayList<>();
-
+    private List<EntranceType> enterTypes = new ArrayList<>();
 
     @NotNull
     @OneToMany(fetch = FetchType.LAZY)
@@ -51,23 +53,21 @@ public class ResortCity {
             })
     private List<TravelingType> travelingTypes = new ArrayList<>();
 
-    public ResortCity() {
-    }
-
-    public ResortCity(List<ResortArea> areas, Boolean isAbleForEntering, List<EntranceType> entranceTypes,
-                      List<TravelingType> travelingTypes) {
-        this.areas = areas;
-        this.isAbleForEntering = isAbleForEntering;
-        this.entranceTypes = entranceTypes;
-        this.travelingTypes = travelingTypes;
-    }
-
     public Long getId() {
         return id;
     }
 
     public ResortCity setId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public ResortCity setName(String name) {
+        this.name = name;
         return this;
     }
 
@@ -98,12 +98,12 @@ public class ResortCity {
         return this;
     }
 
-    public List<EntranceType> getEntranceTypes() {
-        return entranceTypes;
+    public List<EntranceType> getEnterTypes() {
+        return enterTypes;
     }
 
-    public ResortCity setEntranceTypes(List<EntranceType> entranceTypes) {
-        this.entranceTypes = entranceTypes;
+    public ResortCity setEnterTypes(List<EntranceType> enterTypes) {
+        this.enterTypes = enterTypes;
         return this;
     }
 

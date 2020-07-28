@@ -17,12 +17,6 @@ public class CountryEditDTO {
     @JsonProperty("name")
     private String name;
 
-    @JsonProperty("cityIds")
-    private List<Long> cityIds = new ArrayList<>();
-
-    @JsonProperty("enterTypesIds")
-    private List<Long> enterTypesIds = new ArrayList<>();
-
     public Long getId() {
         return id;
     }
@@ -47,19 +41,4 @@ public class CountryEditDTO {
         this.name = name;
     }
 
-    public List<Long> getCityIds() {
-        return cityIds;
-    }
-
-    public void setCityIds(List<Long> cityIds) {
-        this.cityIds = cityIds;
-    }
-
-    public List<Long> getEnterTypesIds() {
-        return enterTypesIds;
-    }
-
-    public void setEnterTypesIds(List<Long> enterTypesIds) {
-        this.enterTypesIds = enterTypesIds;
-    }
 }

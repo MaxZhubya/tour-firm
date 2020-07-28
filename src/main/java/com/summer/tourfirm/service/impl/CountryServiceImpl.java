@@ -1,17 +1,14 @@
 package com.summer.tourfirm.service.impl;
 
 import com.summer.tourfirm.dto.CountryDTO;
-import com.summer.tourfirm.dto.EntranceTypeDTO;
 import com.summer.tourfirm.dto.edit.CountryEditDTO;
 import com.summer.tourfirm.entity.Country;
-import com.summer.tourfirm.entity.ResortCity;
 import com.summer.tourfirm.entity.types.EntranceType;
 import com.summer.tourfirm.exception.DataNotFoundException;
 import com.summer.tourfirm.exception.DataValidationException;
 import com.summer.tourfirm.repository.CountryRepository;
 import com.summer.tourfirm.service.ICountryService;
 import com.summer.tourfirm.service.IEntranceTypeService;
-import com.summer.tourfirm.service.IResortCityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,22 +22,16 @@ import java.util.stream.Collectors;
 public class CountryServiceImpl implements ICountryService {
 
     @Autowired
-    private IResortCityService cityService;
-
-    @Autowired
     private IEntranceTypeService entranceTypeService;
 
     @Autowired
     private CountryRepository repository;
-
-
 
     @Override
     @Transactional(readOnly = true)
     public CountryDTO get(Long id) {
         return CountryDTO.makeDTO(getEntity(id));
     }
-
 
     @Override
     @Transactional(readOnly = true)
@@ -49,19 +40,12 @@ public class CountryServiceImpl implements ICountryService {
                 .map(CountryDTO::makeDTO).collect(Collectors.toList());
     }
 
-
     @Override
     public CountryDTO create(CountryEditDTO countryEditDTO) {
-        Country country = new Country()
-                .setAbleForEntering(countryEditDTO.getIsAbleForEntering());
-
-        country = repository.save(country);
-
+        Country country = new Country();
         setInputData(country, countryEditDTO);
-
         return CountryDTO.makeDTO(repository.save(country));
     }
-
 
     @Override
     public CountryDTO update(CountryEditDTO countryEditDTO) {
@@ -69,30 +53,20 @@ public class CountryServiceImpl implements ICountryService {
             throw new DataValidationException("ID can't be null!");
 
         Country country = getEntity(countryEditDTO.getId());
-
-        clearRelatedData(country);
-
         setInputData(country, countryEditDTO);
-
         return CountryDTO.makeDTO(repository.save(country));
     }
-
 
     @Override
     public void delete(Long id) {
         Country country = getEntity(id);
-
-        clearRelatedData(country);
-
         repository.delete(country);
     }
-
 
     @Override
     public Country save(Country country) {
         return repository.save(country);
     }
-
 
     @Override
     public Country getEntity(Long id) {
@@ -100,46 +74,34 @@ public class CountryServiceImpl implements ICountryService {
                 + id.toString() + " is not existed"));
     }
 
-
     @Override
     public List<Country> getEntitiesByIds(List<Long> ids) {
         return repository.findAllById(ids);
     }
 
+    @Override
+    public CountryDTO addEntranceType(Long id, List<Long> entranceTypeIds) {
+        List<EntranceType> entranceTypeList = entranceTypeService.getEntitiesByIds(entranceTypeIds);
+        if (entranceTypeList.size() != entranceTypeIds.size())
+            throw new DataValidationException("EntranceType ids are wrong!");
 
-    private void setInputData(final Country country, CountryEditDTO countryEditDTO) {
-
-        // Set ResortCity
-        if (!countryEditDTO.getCityIds().isEmpty()) {
-            List<ResortCity> cityList = cityService.getEntitiesByIds(countryEditDTO.getCityIds());
-            if (cityList.size() != countryEditDTO.getCityIds().size())
-                throw new DataValidationException("ResortCity ids are wrong!");
-            cityList.forEach(resortCity -> resortCity.setCountry(country));
-            country.setCities(cityList);
-        }
-
-        // Set Able ForEntering
-        country.setAbleForEntering(countryEditDTO.getIsAbleForEntering());
-
-        // Set EnterWays
-        if (!countryEditDTO.getEnterTypesIds().isEmpty()) {
-            //List<EntranceType> typeList = typeService.getEntitiesByIds(countryEditDTO.getEnterTypesIds());
-            if (country.getEnterTypes().size() != countryEditDTO.getEnterTypesIds().size())
-                throw new DataValidationException("EntranceType ids are wrong!");
-
-            country.setEnterTypes(entranceTypeService.getEntitiesByIds(countryEditDTO.getEnterTypesIds()));
-
-            // Didn't finish it yet
-        }
-
-
+        Country country = getEntity(id);
+        country.getEnterTypes().clear();
+        country.getEnterTypes().addAll(entranceTypeList);
+        return CountryDTO.makeDTO(repository.save(country));
     }
 
-    private void clearRelatedData(Country country) {
-        List<ResortCity> cities = country.getCities();
-        if (!country.getCities().isEmpty()) {
-            country.getCities().removeAll(cities);
-        }
+    @Override
+    public void deleteEntranceType(Long id, Long typeId) {
+        EntranceType entranceType = entranceTypeService.getEntity(typeId);
+        Country country = getEntity(id);
+        country.getEnterTypes().remove(entranceType);
+        repository.save(country);
+    }
+
+    private void setInputData(final Country country, CountryEditDTO countryEditDTO) {
+        country.setAbleForEntering(countryEditDTO.getIsAbleForEntering())
+                .setName(countryEditDTO.getName());
     }
 
 }

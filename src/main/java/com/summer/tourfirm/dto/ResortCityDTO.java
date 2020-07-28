@@ -11,11 +11,14 @@ import java.util.stream.Collectors;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
-@JsonPropertyOrder({"id", "isAbleForEntering", "entranceTypes", "travelingTypes", "country", "areas"})
+@JsonPropertyOrder({"id", "isAbleForEntering", "name", "enterTypes", "travelingTypes", "country", "areas"})
 public class ResortCityDTO {
 
     @JsonProperty("id")
     private Long id;
+
+    @JsonProperty("name")
+    private String name;
 
     @JsonInclude(NON_NULL)
     @JsonProperty("country")
@@ -30,8 +33,8 @@ public class ResortCityDTO {
     private Boolean isAbleForEntering;
 
     @JsonInclude(NON_NULL)
-    @JsonProperty("entranceTypes")
-    private List<EntranceTypeDTO> entranceTypes = new ArrayList<>();
+    @JsonProperty("enterTypes")
+    private List<EntranceTypeDTO> enterTypes = new ArrayList<>();
 
     @JsonInclude(NON_NULL)
     @JsonProperty("travelingTypes")
@@ -43,6 +46,15 @@ public class ResortCityDTO {
 
     public ResortCityDTO setId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public ResortCityDTO setName(String name) {
+        this.name = name;
         return this;
     }
 
@@ -73,12 +85,12 @@ public class ResortCityDTO {
         return this;
     }
 
-    public List<EntranceTypeDTO> getEntranceTypes() {
-        return entranceTypes;
+    public List<EntranceTypeDTO> getEnterTypes() {
+        return enterTypes;
     }
 
-    public ResortCityDTO setEntranceTypes(List<EntranceTypeDTO> entranceTypes) {
-        this.entranceTypes = entranceTypes;
+    public ResortCityDTO setEnterTypes(List<EntranceTypeDTO> enterTypes) {
+        this.enterTypes = enterTypes;
         return this;
     }
 
@@ -94,10 +106,11 @@ public class ResortCityDTO {
     public static ResortCityDTO makeDTO(ResortCity city) {
         return new ResortCityDTO()
                 .setId(city.getId())
+                .setName(city.getName())
                 .setIsAbleForEntering(city.getIsAbleForEntering())
 
                 // Enum Lists
-                .setEntranceTypes(city.getEntranceTypes().stream()
+                .setEnterTypes(city.getEnterTypes().stream()
                     .map(EntranceTypeDTO::makeSimpleDTO).collect(Collectors.toList()))
 
                 .setTravelingTypes(city.getTravelingTypes().stream()
@@ -112,10 +125,11 @@ public class ResortCityDTO {
     public static ResortCityDTO makeSimpleDTO(ResortCity city) {
         return (city != null) ? new ResortCityDTO()
                 .setId(city.getId())
+                .setName(city.getName())
                 .setIsAbleForEntering(city.getIsAbleForEntering())
 
                 // Enum Lists
-                .setEntranceTypes(city.getEntranceTypes().stream()
+                .setEnterTypes(city.getEnterTypes().stream()
                     .map(EntranceTypeDTO::makeSimpleDTO).collect(Collectors.toList()))
 
                 .setTravelingTypes(city.getTravelingTypes().stream()

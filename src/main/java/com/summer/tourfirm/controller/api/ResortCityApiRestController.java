@@ -43,4 +43,30 @@ public class ResortCityApiRestController {
         resortCityService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    /*-----EntranceType Rest-----*/
+
+    @PostMapping("/{id}/enter-type/add")
+    public ResponseEntity<ResortCityDTO> update(@PathVariable("id") Long id, @RequestBody List<Long> entranceTypeIds) {
+        return new ResponseEntity<>(resortCityService.addEntranceType(id, entranceTypeIds), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}/enter-type/delete/{typeId}")
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id, @PathVariable("typeId") Long typeId) {
+        resortCityService.deleteEntranceType(id, typeId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /*-----TravelingType Rest-----*/
+
+    @PostMapping("/{id}/traveling-type/add")
+    public ResponseEntity<ResortCityDTO> update(@PathVariable("id") Long id, @RequestBody List<Long> travelingTypeIds) {
+        return new ResponseEntity<>(resortCityService.addTravelingType(id, travelingTypeIds), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}/traveling-type/delete/{typeId}")
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id, @PathVariable("typeId") Long typeId) {
+        resortCityService.deleteTravelingType(id, typeId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

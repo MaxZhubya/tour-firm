@@ -16,4 +16,8 @@ public interface ICountryService {
     Country save(Country country);
     Country getEntity(Long id);
     List<Country> getEntitiesByIds(List<Long> ids);
+
+    /* EntranceType methods */
+    CountryDTO addEntranceType(Long id, List<Long> entranceTypeIds);
+    void deleteEntranceType(Long id, Long typeId);
 }

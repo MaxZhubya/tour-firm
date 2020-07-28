@@ -1,6 +1,7 @@
 package com.summer.tourfirm.entity;
 
 import com.summer.tourfirm.entity.types.EntranceType;
+import com.summer.tourfirm.exception.DataNotFoundException;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -20,7 +21,7 @@ public class Country {
     private Long id;
 
     @NotNull
-    @OneToMany(mappedBy = "country", orphanRemoval = true)
+    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
     private List<ResortCity> cities = new ArrayList<>();
 
     private Boolean isAbleForEntering;
@@ -29,7 +30,7 @@ public class Country {
     private String name;
 
     @NotNull
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "country_enterType",
             joinColumns = {
                 @JoinColumn(name = "country_id", referencedColumnName = "id")},
@@ -37,16 +38,6 @@ public class Country {
                 @JoinColumn(name = "enterType_id", referencedColumnName = "id")
     })
     private List<EntranceType> enterTypes = new ArrayList<>();
-
-    public Country() {
-    }
-
-    public Country(List<ResortCity> cities, Boolean isAbleForEntering, String name, List<EntranceType> enterTypes) {
-        this.cities = cities;
-        this.isAbleForEntering = isAbleForEntering;
-        this.name = name;
-        this.enterTypes = enterTypes;
-    }
 
     public Long getId() {
         return id;
@@ -105,4 +96,11 @@ public class Country {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
+    public ResortCity getCityByName(String name) {
+        return getCities().stream().filter(value -> value.getName().equalsIgnoreCase(name))
+                .findFirst().orElseThrow(() -> new DataNotFoundException("ResortCity with name: "
+                + name + " is not existed"));
+    }
+
 }

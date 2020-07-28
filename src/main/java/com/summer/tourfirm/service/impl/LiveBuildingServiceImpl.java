@@ -1,6 +1,7 @@
 package com.summer.tourfirm.service.impl;
 
 import com.summer.tourfirm.dto.LiveBuildingDTO;
+import com.summer.tourfirm.dto.edit.ApartmentEditDTO;
 import com.summer.tourfirm.dto.edit.LiveBuildingEditDTO;
 import com.summer.tourfirm.entity.Apartment;
 import com.summer.tourfirm.entity.LiveBuilding;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -56,9 +58,12 @@ public class LiveBuildingServiceImpl implements ILiveBuildingService {
                 .setIfParkingExist(liveBuildingEditDTO.getIfParkingExist())
                 .setDistanceToBeach(liveBuildingEditDTO.getDistanceToBeach());
 
+
+        //liveBuilding.setApartments(apartmentList);
+
         liveBuilding = repository.save(liveBuilding);
 
-        setInputData(liveBuilding, liveBuildingEditDTO);
+        // setInputData(liveBuilding, liveBuildingEditDTO);
 
         return LiveBuildingDTO.makeDTO(repository.save(liveBuilding));
     }
@@ -71,9 +76,11 @@ public class LiveBuildingServiceImpl implements ILiveBuildingService {
 
         LiveBuilding liveBuilding = getEntity(liveBuildingEditDTO.getId());
 
-        // clearRelatedData(liveBuilding);
 
-        setInputData(liveBuilding, liveBuildingEditDTO);
+
+        //clearRelatedData(liveBuilding);
+
+        //setInputData(liveBuilding, liveBuildingEditDTO);
 
         return LiveBuildingDTO.makeDTO(repository.save(liveBuilding));
     }
@@ -82,6 +89,8 @@ public class LiveBuildingServiceImpl implements ILiveBuildingService {
     @Override
     public void delete(Long id) {
         LiveBuilding liveBuilding = getEntity(id);
+        // clearRelatedData(liveBuilding);
+
         repository.delete(liveBuilding);
     }
 
@@ -112,16 +121,16 @@ public class LiveBuildingServiceImpl implements ILiveBuildingService {
 
 
     private void setInputData(final LiveBuilding building, LiveBuildingEditDTO buildingEditDTO) {
-        if (!buildingEditDTO.getApartmentIds().isEmpty()) {
-            List<Apartment> apartments = apartmentService.getEntitiesByIds(buildingEditDTO.getApartmentIds());
-            if(apartments.size() != buildingEditDTO.getApartmentIds().size())
+        /*if (!buildingEditDTO.getApartments().isEmpty()) {
+            List<Apartment> apartments = apartmentService.getEntitiesByIds(buildingEditDTO.getApartments());
+            if(apartments.size() != buildingEditDTO.getApartments().size())
                 throw new DataValidationException("Apartment ids are wrong!");
-            // apartments.forEach(apartment -> apartment.setBuilding(building));
+            apartments.forEach(apartment -> apartment.setBuilding(building));
             building.setApartments(apartments);
             apartmentService.save(apartments);
-        }
+        }*/
 
-        building.setAvailableApartmentCount(buildingEditDTO.getApartmentIds().size());
+        building.setAvailableApartmentCount(buildingEditDTO.getApartments().size());
 
         building.setType(buildingEditDTO.getTypeId());
         building.setIfPoolExist(buildingEditDTO.getIfPoolExist());
@@ -143,5 +152,19 @@ public class LiveBuildingServiceImpl implements ILiveBuildingService {
         apartmentService.save(apartments);
         building.getApartments().clear();
     }
+
+    /*
+    List<Apartment> apartmentList = new ArrayList<>();
+        for (ApartmentEditDTO apartmentEditDTO: liveBuildingEditDTO.getApartments()) {
+            Apartment apartment = new Apartment()
+                    .setPrice(apartmentEditDTO.getPrice())
+                    .setIfBathroomExist(apartmentEditDTO.getIfBathroomExist())
+                    .setAmountOfRooms(apartmentEditDTO.getAmountOfRooms())
+                    .setAmountOfBeds(apartmentEditDTO.getAmountOfBeds());
+            apartment.setBuilding(liveBuilding);
+            apartmentList.add(apartment);
+        }
+     */
+
 
 }

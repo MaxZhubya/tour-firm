@@ -2,7 +2,6 @@ package com.summer.tourfirm.dto.edit;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.summer.tourfirm.entity.enums.BuildingEnum;
-import com.summer.tourfirm.entity.types.BuildingType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +11,8 @@ public class LiveBuildingEditDTO {
     @JsonProperty("id")
     private Long id;
 
-    @JsonProperty("apartmentIds")
-    private List<Long> apartmentIds = new ArrayList<>();
+    @JsonProperty("apartments")
+    private List<ApartmentEditDTO> apartments = new ArrayList<>();
 
     @JsonProperty("type")
     private BuildingEnum type;
@@ -38,12 +37,12 @@ public class LiveBuildingEditDTO {
         this.id = id;
     }
 
-    public List<Long> getApartmentIds() {
-        return apartmentIds;
+    public List<ApartmentEditDTO> getApartments() {
+        return apartments;
     }
 
-    public void setApartmentIds(List<Long> apartmentIds) {
-        this.apartmentIds = apartmentIds;
+    public void setApartments(List<ApartmentEditDTO> apartments) {
+        this.apartments = apartments;
     }
 
     public BuildingEnum getTypeId() {
