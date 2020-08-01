@@ -27,9 +27,6 @@ public class ResortAreaServiceImpl implements IResortAreaService {
     private IResortCityService cityService;
 
     @Autowired
-    private ILiveBuildingService buildingService;
-
-    @Autowired
     private ResortAreaRepository repository;
 
 
@@ -50,14 +47,13 @@ public class ResortAreaServiceImpl implements IResortAreaService {
 
     @Override
     public ResortAreaDTO create(ResortAreaEditDTO resortAreaEditDTO) {
-        ResortArea area = new ResortArea()
-                .setDefinition(resortAreaEditDTO.getDefinition());
-
-        area = repository.save(area);
-
+        ResortArea area = new ResortArea();
         setInputData(area, resortAreaEditDTO);
-
-        return ResortAreaDTO.makeDTO(repository.save(area));
+        ResortCity city = cityService.getEntity(resortAreaEditDTO.getCityId());
+        area.setCity(city);
+        city.getAreas().add(area);
+        city = cityService.save(city);
+        return ResortAreaDTO.makeDTO(city.getAreaByName(area.getName()));
     }
 
 
@@ -67,11 +63,7 @@ public class ResortAreaServiceImpl implements IResortAreaService {
             throw new DataValidationException("ID can't be null!");
 
         ResortArea area = getEntity(resortAreaEditDTO.getId());
-
-        clearRelatedData(area);
-
         setInputData(area, resortAreaEditDTO);
-
         return ResortAreaDTO.makeDTO(repository.save(area));
     }
 
@@ -79,9 +71,9 @@ public class ResortAreaServiceImpl implements IResortAreaService {
     @Override
     public void delete(Long id) {
         ResortArea area = getEntity(id);
-
-        clearRelatedData(area);
-
+        ResortCity city = area.getCity();
+        city.getAreas().remove(area);
+        cityService.save(city);
         repository.delete(area);
     }
 
@@ -112,35 +104,8 @@ public class ResortAreaServiceImpl implements IResortAreaService {
 
 
     private void setInputData(final ResortArea area, ResortAreaEditDTO areaEditDTO) {
-        area.setDefinition(areaEditDTO.getDefinition());
-
-        if (Objects.nonNull(areaEditDTO.getCityId())) {
-            area.setCity(cityService.getEntity(areaEditDTO.getCityId()));
-        }
-
-        if (!areaEditDTO.getBuildingIds().isEmpty()) {
-            List<LiveBuilding> buildings = buildingService.getEntitiesByIds(areaEditDTO.getBuildingIds());
-            if (buildings.size() != areaEditDTO.getBuildingIds().size())
-                throw new DataValidationException("BuildingEnum ids are wrong!");
-            buildings.forEach(building -> building.setArea(area));
-            area.setBuildings(buildings);
-        }
-
+        area.setName(areaEditDTO.getName());
     }
 
-
-    private void clearRelatedData(ResortArea area) {
-        ResortCity city = area.getCity();
-        if (Objects.nonNull(city)){
-                city.getAreas().remove(area);
-                cityService.save(city);
-        }
-        area.setCity(null);
-
-        List<LiveBuilding> buildings = area.getBuildings();
-        buildings.forEach(building -> building.setArea(null));
-        buildingService.save(buildings);
-        area.getBuildings().clear();
-    }
 
 }

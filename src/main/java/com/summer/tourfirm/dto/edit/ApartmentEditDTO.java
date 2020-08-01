@@ -10,6 +10,9 @@ public class ApartmentEditDTO {
     @JsonProperty("buildingId")
     private Long buildingId;
 
+    @JsonProperty("number")
+    private String number;
+
     @JsonProperty("price")
     private Integer price;
 
@@ -36,6 +39,14 @@ public class ApartmentEditDTO {
 
     public void setBuildingId(Long buildingId) {
         this.buildingId = buildingId;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public Integer getPrice() {

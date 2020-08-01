@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
-@JsonPropertyOrder({"id", "definition", "city", "buildings"})
+@JsonPropertyOrder({"id", "name", "city", "buildings"})
 public class ResortAreaDTO {
 
     @JsonProperty("id")
@@ -27,8 +27,8 @@ public class ResortAreaDTO {
     private List<LiveBuildingDTO> buildings = new ArrayList<>();
 
     @JsonInclude(NON_EMPTY)
-    @JsonProperty("definition")
-    private String definition;
+    @JsonProperty("name")
+    private String name;
 
     public Long getId() {
         return id;
@@ -57,19 +57,19 @@ public class ResortAreaDTO {
         return this;
     }
 
-    public String getDefinition() {
-        return definition;
+    public String getName() {
+        return name;
     }
 
-    public ResortAreaDTO setDefinition(String definition) {
-        this.definition = definition;
+    public ResortAreaDTO setName(String name) {
+        this.name = name;
         return this;
     }
 
     public static ResortAreaDTO makeDTO(ResortArea area) {
         return new ResortAreaDTO()
                 .setId(area.getId())
-                .setDefinition(area.getDefinition())
+                .setName(area.getName())
 
                 .setCity(ResortCityDTO.makeSimpleDTO(area.getCity()))
 
@@ -80,6 +80,6 @@ public class ResortAreaDTO {
     public static ResortAreaDTO makeSimpleDTO(ResortArea area) {
         return (area != null) ? new ResortAreaDTO()
                 .setId(area.getId())
-                .setDefinition(area.getDefinition()) : null;
+                .setName(area.getName()) : null;
     }
 }

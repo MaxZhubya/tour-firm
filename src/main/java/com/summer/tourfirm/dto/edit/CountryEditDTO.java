@@ -1,10 +1,6 @@
 package com.summer.tourfirm.dto.edit;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.summer.tourfirm.entity.types.EntranceType;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CountryEditDTO {
 

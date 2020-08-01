@@ -26,9 +26,6 @@ public class ResortCityServiceImpl implements IResortCityService {
     private ICountryService countryService;
 
     @Autowired
-    private IResortAreaService areaService;
-
-    @Autowired
     private IEntranceTypeService entranceTypeService;
 
     @Autowired

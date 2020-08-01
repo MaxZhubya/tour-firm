@@ -2,6 +2,7 @@ package com.summer.tourfirm.entity;
 
 import com.summer.tourfirm.entity.types.EntranceType;
 import com.summer.tourfirm.entity.types.TravelingType;
+import com.summer.tourfirm.exception.DataNotFoundException;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -28,7 +29,7 @@ public class ResortCity {
     private Country country;
 
     @NotNull
-    @OneToMany(mappedBy = "city", orphanRemoval = true)
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     private List<ResortArea> areas = new ArrayList<>();
 
     private Boolean isAbleForEntering;
@@ -127,5 +128,11 @@ public class ResortCity {
     @Override
     public int hashCode() {
         return Objects.hash(getId());
+    }
+
+    public ResortArea getAreaByName(String name) {
+        return getAreas().stream().filter(value -> value.getName().equalsIgnoreCase(name))
+                .findFirst().orElseThrow(() -> new DataNotFoundException("ResortArea with name: "
+                        + name + " doesn't exist"));
     }
 }

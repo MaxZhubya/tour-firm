@@ -34,12 +34,12 @@ public class ResortCityApiRestController {
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<ResortCityDTO> update(@RequestBody @Valid ResortCityEditDTO resortCityEditDTO) {
+    public ResponseEntity<ResortCityDTO> updateResortCity(@RequestBody @Valid ResortCityEditDTO resortCityEditDTO) {
         return new ResponseEntity<>(resortCityService.update(resortCityEditDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deleteResortCity(@PathVariable("id") Long id) {
         resortCityService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -47,12 +47,12 @@ public class ResortCityApiRestController {
     /*-----EntranceType Rest-----*/
 
     @PostMapping("/{id}/enter-type/add")
-    public ResponseEntity<ResortCityDTO> update(@PathVariable("id") Long id, @RequestBody List<Long> entranceTypeIds) {
+    public ResponseEntity<ResortCityDTO> updateEntranceType(@PathVariable("id") Long id, @RequestBody List<Long> entranceTypeIds) {
         return new ResponseEntity<>(resortCityService.addEntranceType(id, entranceTypeIds), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}/enter-type/delete/{typeId}")
-    public ResponseEntity<Void> delete(@PathVariable("id") Long id, @PathVariable("typeId") Long typeId) {
+    public ResponseEntity<Void> deleteEntranceType(@PathVariable("id") Long id, @PathVariable("typeId") Long typeId) {
         resortCityService.deleteEntranceType(id, typeId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -60,12 +60,12 @@ public class ResortCityApiRestController {
     /*-----TravelingType Rest-----*/
 
     @PostMapping("/{id}/traveling-type/add")
-    public ResponseEntity<ResortCityDTO> update(@PathVariable("id") Long id, @RequestBody List<Long> travelingTypeIds) {
+    public ResponseEntity<ResortCityDTO> updateTravelingType(@PathVariable("id") Long id, @RequestBody List<Long> travelingTypeIds) {
         return new ResponseEntity<>(resortCityService.addTravelingType(id, travelingTypeIds), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}/traveling-type/delete/{typeId}")
-    public ResponseEntity<Void> delete(@PathVariable("id") Long id, @PathVariable("typeId") Long typeId) {
+    public ResponseEntity<Void> deleteTravelingType(@PathVariable("id") Long id, @PathVariable("typeId") Long typeId) {
         resortCityService.deleteTravelingType(id, typeId);
         return new ResponseEntity<>(HttpStatus.OK);
     }

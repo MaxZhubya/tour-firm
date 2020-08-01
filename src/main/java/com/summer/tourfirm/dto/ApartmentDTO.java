@@ -5,9 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.summer.tourfirm.entity.Apartment;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
-@JsonPropertyOrder({"id", "price", "amountOfBeds", "amountOfRooms", "ifBathroomExist", "building"})
+@JsonPropertyOrder({"id", "number", "price", "amountOfBeds", "amountOfRooms", "ifBathroomExist", "building"})
 public class ApartmentDTO {
 
     @JsonProperty("id")
@@ -16,6 +17,10 @@ public class ApartmentDTO {
     @JsonInclude(NON_NULL)
     @JsonProperty("building")
     private LiveBuildingDTO building;
+
+    @JsonInclude(NON_EMPTY)
+    @JsonProperty("number")
+    private String number;
 
     @JsonInclude(NON_NULL)
     @JsonProperty("price")
@@ -48,6 +53,15 @@ public class ApartmentDTO {
 
     public ApartmentDTO setBuilding(LiveBuildingDTO building) {
         this.building = building;
+        return this;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public ApartmentDTO setNumber(String number) {
+        this.number = number;
         return this;
     }
 

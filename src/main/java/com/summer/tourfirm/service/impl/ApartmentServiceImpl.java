@@ -45,18 +45,14 @@ public class ApartmentServiceImpl implements IApartmentService {
 
     @Override
     public ApartmentDTO create(ApartmentEditDTO apartmentEditDTO) {
-        Apartment apartment = new Apartment()
-                .setPrice(apartmentEditDTO.getPrice())
-                .setAmountOfBeds(apartmentEditDTO.getAmountOfBeds())
-                .setAmountOfRooms(apartmentEditDTO.getAmountOfRooms())
-                .setIfBathroomExist(apartmentEditDTO.getIfBathroomExist());
-
-        apartment = repository.save(apartment);
-
-        // Set data from ApartmentEditDTO
+        Apartment apartment = new Apartment();
         setInputData(apartment, apartmentEditDTO);
+        LiveBuilding liveBuilding = liveBuildingService.getEntity(apartmentEditDTO.getBuildingId());
+        apartment.setBuilding(liveBuilding);
+        liveBuilding.getApartments().add(apartment);
+        liveBuilding = liveBuildingService.save(liveBuilding);
 
-        return ApartmentDTO.makeDTO(repository.save(apartment));
+        return ApartmentDTO.makeDTO(liveBuilding.getApartmentByNumber(apartment.getNumber()));
     }
 
 
@@ -66,11 +62,7 @@ public class ApartmentServiceImpl implements IApartmentService {
             throw new DataValidationException("ID can't be null!");
 
         Apartment apartment = getEntity(apartmentEditDTO.getId());
-
-        clearRelatedData(apartment);
-
         setInputData(apartment, apartmentEditDTO);
-
         return ApartmentDTO.makeDTO(repository.save(apartment));
     }
 
@@ -78,10 +70,9 @@ public class ApartmentServiceImpl implements IApartmentService {
     @Override
     public void delete(Long id) {
         Apartment apartment = getEntity(id);
-
-        // Remove current Area from all
-        clearRelatedData(apartment);
-
+        LiveBuilding liveBuilding = apartment.getBuilding();
+        liveBuilding.getApartments().remove(apartment);
+        liveBuildingService.save(liveBuilding);
         repository.delete(apartment);
     }
 
@@ -111,26 +102,11 @@ public class ApartmentServiceImpl implements IApartmentService {
 
 
     private void setInputData(final Apartment apartment, ApartmentEditDTO apartmentEditDTO) {
-
-        // Set Price
-        apartment.setPrice(apartmentEditDTO.getPrice());
-
-        // Set AmountOfBeds
-        apartment.setAmountOfBeds(apartmentEditDTO.getAmountOfBeds());
-
-        // Set AmountOfRooms
-        apartment.setAmountOfRooms(apartmentEditDTO.getAmountOfRooms());
-
-        // Set IfBathroomExist
-        apartment.setIfBathroomExist(apartmentEditDTO.getIfBathroomExist());
-    }
-
-    private void clearRelatedData(Apartment apartment) {
-        LiveBuilding building = apartment.getBuilding();
-        if (Objects.nonNull(building)) {
-            building.getApartments().remove(apartment);
-            liveBuildingService.save(building);
-        }
+        apartment.setNumber(apartmentEditDTO.getNumber())
+                .setPrice(apartmentEditDTO.getPrice())
+                .setAmountOfBeds(apartmentEditDTO.getAmountOfBeds())
+                .setAmountOfRooms(apartmentEditDTO.getAmountOfRooms())
+                .setIfBathroomExist(apartmentEditDTO.getIfBathroomExist());
     }
 
 }

@@ -1,6 +1,7 @@
 package com.summer.tourfirm.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
 @Entity
@@ -16,6 +17,9 @@ public class Apartment {
     @ManyToOne
     @JoinColumn(name = "building_id", referencedColumnName = "id")
     private LiveBuilding building;
+
+    @NotEmpty
+    private String number;
 
     private Integer price;
 
@@ -50,6 +54,15 @@ public class Apartment {
 
     public Apartment setBuilding(LiveBuilding building) {
         this.building = building;
+        return this;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public Apartment setNumber(String number) {
+        this.number = number;
         return this;
     }
 

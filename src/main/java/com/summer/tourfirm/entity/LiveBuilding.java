@@ -1,8 +1,10 @@
 package com.summer.tourfirm.entity;
 
 import com.summer.tourfirm.entity.enums.BuildingEnum;
+import com.summer.tourfirm.exception.DataNotFoundException;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,12 @@ public class LiveBuilding {
     @Enumerated(EnumType.STRING)
     private BuildingEnum type;
 
+    @NotEmpty
+    private String number;
+
+    @NotEmpty
+    private String address;
+
     private Integer availableApartmentCount;
 
     private Boolean ifPoolExist;
@@ -37,19 +45,6 @@ public class LiveBuilding {
     private Boolean ifParkingExist;
 
     private Integer distanceToBeach;
-
-    public LiveBuilding() {
-    }
-
-    public LiveBuilding(List<Apartment> apartments, BuildingEnum type, Integer availableApartmentCount,
-                        Boolean ifPoolExist, Boolean ifParkingExist, Integer distanceToBeach) {
-        this.apartments = apartments;
-        this.type = type;
-        this.availableApartmentCount = availableApartmentCount;
-        this.ifPoolExist = ifPoolExist;
-        this.ifParkingExist = ifParkingExist;
-        this.distanceToBeach = distanceToBeach;
-    }
 
     public Long getId() {
         return id;
@@ -84,6 +79,24 @@ public class LiveBuilding {
 
     public LiveBuilding setType(BuildingEnum type) {
         this.type = type;
+        return this;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public LiveBuilding setNumber(String number) {
+        this.number = number;
+        return this;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public LiveBuilding setAddress(String address) {
+        this.address = address;
         return this;
     }
 
@@ -134,5 +147,11 @@ public class LiveBuilding {
     @Override
     public int hashCode() {
         return Objects.hash(getId());
+    }
+
+    public Apartment getApartmentByNumber(String number) {
+        return getApartments().stream().filter(value -> value.getNumber().equalsIgnoreCase(number))
+                .findFirst().orElseThrow(() -> new DataNotFoundException("Apartment with number: "
+                        + number + " doesn't exist"));
     }
 }

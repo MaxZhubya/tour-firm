@@ -100,7 +100,7 @@ public class Country {
     public ResortCity getCityByName(String name) {
         return getCities().stream().filter(value -> value.getName().equalsIgnoreCase(name))
                 .findFirst().orElseThrow(() -> new DataNotFoundException("ResortCity with name: "
-                + name + " is not existed"));
+                + name + " doesn't exist"));
     }
 
 }

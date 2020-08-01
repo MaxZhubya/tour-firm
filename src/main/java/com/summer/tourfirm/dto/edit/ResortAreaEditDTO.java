@@ -2,22 +2,19 @@ package com.summer.tourfirm.dto.edit;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.NotNull;
 
 public class ResortAreaEditDTO {
 
     @JsonProperty("id")
     private Long id;
 
+    @NotNull
     @JsonProperty("cityId")
     private Long cityId;
 
-    @JsonProperty("buildingIds")
-    private List<Long> buildingIds = new ArrayList<>();
-
-    @JsonProperty("definition")
-    private String definition;
+    @JsonProperty("name")
+    private String name;
 
     public Long getId() {
         return id;
@@ -35,19 +32,11 @@ public class ResortAreaEditDTO {
         this.cityId = cityId;
     }
 
-    public List<Long> getBuildingIds() {
-        return buildingIds;
+    public String getName() {
+        return name;
     }
 
-    public void setBuildingIds(List<Long> buildingIds) {
-        this.buildingIds = buildingIds;
-    }
-
-    public String getDefinition() {
-        return definition;
-    }
-
-    public void setDefinition(String definition) {
-        this.definition = definition;
+    public void setName(String name) {
+        this.name = name;
     }
 }

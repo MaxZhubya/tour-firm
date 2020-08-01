@@ -17,4 +17,6 @@ public interface IResortAreaService {
     List<ResortArea> save(List<ResortArea> areas);
     ResortArea getEntity(Long id);
     List<ResortArea> getEntitiesByIds(List<Long> ids);
+
+
 }

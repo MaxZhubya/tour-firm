@@ -7,13 +7,15 @@ import com.summer.tourfirm.entity.LiveBuilding;
 import com.summer.tourfirm.entity.enums.BuildingEnum;
 import com.summer.tourfirm.entity.types.BuildingType;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
-@JsonPropertyOrder({"id", "type", "availableApartmentCount", "ifPoolExist", "ifParkingExist", "distanceToBeach", "area", "apartments"})
+@JsonPropertyOrder({"id", "type", "number", "address", "availableApartmentCount", "ifPoolExist", "ifParkingExist", "distanceToBeach", "area", "apartments"})
 public class LiveBuildingDTO {
 
     @JsonProperty("id")
@@ -30,6 +32,14 @@ public class LiveBuildingDTO {
     @JsonInclude(NON_NULL)
     @JsonProperty("type")
     private BuildingEnum type;
+
+    @JsonInclude(NON_EMPTY)
+    @JsonProperty("number")
+    private String number;
+
+    @JsonInclude(NON_EMPTY)
+    @JsonProperty("address")
+    private String address;
 
     @JsonInclude(NON_NULL)
     @JsonProperty("availableApartmentCount")
@@ -80,6 +90,24 @@ public class LiveBuildingDTO {
 
     public LiveBuildingDTO setType(BuildingEnum type) {
         this.type = type;
+        return this;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public LiveBuildingDTO setNumber(String number) {
+        this.number = number;
+        return this;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public LiveBuildingDTO setAddress(String address) {
+        this.address = address;
         return this;
     }
 

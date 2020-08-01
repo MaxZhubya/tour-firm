@@ -34,12 +34,12 @@ public class CountryApiRestController {
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<CountryDTO> update(@RequestBody @Valid CountryEditDTO countryEditDTO) {
+    public ResponseEntity<CountryDTO> updateCountry(@RequestBody @Valid CountryEditDTO countryEditDTO) {
         return new ResponseEntity<>(countryService.update(countryEditDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deleteCountry(@PathVariable("id") Long id) {
         countryService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -47,12 +47,12 @@ public class CountryApiRestController {
     /*-----EntranceType Rest-----*/
 
     @PostMapping("/{id}/enter-type/add")
-    public ResponseEntity<CountryDTO> update(@PathVariable("id") Long id, @RequestBody List<Long> entranceTypeIds) {
+    public ResponseEntity<CountryDTO> updateEntranceType(@PathVariable("id") Long id, @RequestBody List<Long> entranceTypeIds) {
         return new ResponseEntity<>(countryService.addEntranceType(id, entranceTypeIds), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}/enter-type/delete/{typeId}")
-    public ResponseEntity<Void> delete(@PathVariable("id") Long id, @PathVariable("typeId") Long typeId) {
+    public ResponseEntity<Void> deleteEntranceType(@PathVariable("id") Long id, @PathVariable("typeId") Long typeId) {
         countryService.deleteEntranceType(id, typeId);
         return new ResponseEntity<>(HttpStatus.OK);
     }

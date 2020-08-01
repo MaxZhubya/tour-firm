@@ -1,8 +1,10 @@
 package com.summer.tourfirm.entity;
 
+import com.summer.tourfirm.exception.DataNotFoundException;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -22,18 +24,11 @@ public class ResortArea {
     private ResortCity city;
 
     @NotNull
-    @OneToMany(mappedBy = "area", orphanRemoval = true)
+    @OneToMany(mappedBy = "area", cascade = CascadeType.ALL)
     private List<LiveBuilding> buildings = new ArrayList<>();
 
-    private String definition;
-
-    public ResortArea() {
-    }
-
-    public ResortArea(List<LiveBuilding> buildings, String definition) {
-        this.buildings = buildings;
-        this.definition = definition;
-    }
+    @NotEmpty
+    private String name;
 
     public Long getId() {
         return id;
@@ -62,12 +57,12 @@ public class ResortArea {
         return this;
     }
 
-    public String getDefinition() {
-        return definition;
+    public String getName() {
+        return name;
     }
 
-    public ResortArea setDefinition(String definition) {
-        this.definition = definition;
+    public ResortArea setName(String name) {
+        this.name = name;
         return this;
     }
 
@@ -82,5 +77,11 @@ public class ResortArea {
     @Override
     public int hashCode() {
         return Objects.hash(getId());
+    }
+
+    public LiveBuilding getBuildingByNumber(String number) {
+        return getBuildings().stream().filter(value -> value.getNumber().equalsIgnoreCase(number))
+                .findFirst().orElseThrow(() -> new DataNotFoundException("LiveBuilding with number: "
+                        + number + " doesn't exist"));
     }
 }

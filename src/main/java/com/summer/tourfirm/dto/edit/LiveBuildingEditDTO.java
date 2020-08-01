@@ -3,6 +3,7 @@ package com.summer.tourfirm.dto.edit;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.summer.tourfirm.entity.enums.BuildingEnum;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,14 +12,21 @@ public class LiveBuildingEditDTO {
     @JsonProperty("id")
     private Long id;
 
-    @JsonProperty("apartments")
-    private List<ApartmentEditDTO> apartments = new ArrayList<>();
+    @NotNull
+    @JsonProperty("areaId")
+    private Long areaId;
 
     @JsonProperty("type")
     private BuildingEnum type;
 
-    @JsonProperty("availableApartmentCount")
-    private Integer availableApartmentCount;
+    @JsonProperty("number")
+    private String number;
+
+    @JsonProperty("address")
+    private String address;
+
+//    @JsonProperty("availableApartmentCount")
+//    private Integer availableApartmentCount;
 
     @JsonProperty("ifPoolExist")
     private Boolean ifPoolExist;
@@ -37,29 +45,45 @@ public class LiveBuildingEditDTO {
         this.id = id;
     }
 
-    public List<ApartmentEditDTO> getApartments() {
-        return apartments;
+    public Long getAreaId() {
+        return areaId;
     }
 
-    public void setApartments(List<ApartmentEditDTO> apartments) {
-        this.apartments = apartments;
+    public void setAreaId(Long areaId) {
+        this.areaId = areaId;
     }
 
-    public BuildingEnum getTypeId() {
+    public BuildingEnum getType() {
         return type;
     }
 
-    public void setTypeId(BuildingEnum type) {
+    public void setType(BuildingEnum type) {
         this.type = type;
     }
 
-    public Integer getAvailableApartmentCount() {
-        return availableApartmentCount;
+    public String getNumber() {
+        return number;
     }
 
-    public void setAvailableApartmentCount(Integer availableApartmentCount) {
-        this.availableApartmentCount = availableApartmentCount;
+    public void setNumber(String number) {
+        this.number = number;
     }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+//    public Integer getAvailableApartmentCount() {
+//        return availableApartmentCount;
+//    }
+//
+//    public void setAvailableApartmentCount(Integer availableApartmentCount) {
+//        this.availableApartmentCount = availableApartmentCount;
+//    }
 
     public Boolean getIfPoolExist() {
         return ifPoolExist;
