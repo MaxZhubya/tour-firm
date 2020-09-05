@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "enterTypes")
+@Table(name = "enter_types")
 public class EntranceType {
 
     private static final long serialVersionUID = -8745466712345678L;

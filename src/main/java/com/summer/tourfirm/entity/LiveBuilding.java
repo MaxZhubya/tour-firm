@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "liveBuildings")
+@Table(name = "live_buildings")
 public class LiveBuilding {
 
     private static final long serialVersionUID = -8748906876368098L;
@@ -29,6 +29,10 @@ public class LiveBuilding {
     private List<Apartment> apartments = new ArrayList<>();
 
     @NotNull
+    @OneToMany(mappedBy = "building", cascade = CascadeType.ALL)
+    private List<Image> images = new ArrayList<>();
+
+    @NotNull
     @Enumerated(EnumType.STRING)
     private BuildingEnum type;
 
@@ -37,6 +41,9 @@ public class LiveBuilding {
 
     @NotEmpty
     private String address;
+
+    @NotEmpty
+    private String name;
 
     private Integer availableApartmentCount;
 
@@ -73,6 +80,15 @@ public class LiveBuilding {
         return this;
     }
 
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public LiveBuilding setImages(List<Image> images) {
+        this.images = images;
+        return this;
+    }
+
     public BuildingEnum getType() {
         return type;
     }
@@ -97,6 +113,15 @@ public class LiveBuilding {
 
     public LiveBuilding setAddress(String address) {
         this.address = address;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public LiveBuilding setName(String name) {
+        this.name = name;
         return this;
     }
 
@@ -153,5 +178,11 @@ public class LiveBuilding {
         return getApartments().stream().filter(value -> value.getNumber().equalsIgnoreCase(number))
                 .findFirst().orElseThrow(() -> new DataNotFoundException("Apartment with number: "
                         + number + " doesn't exist"));
+    }
+
+    public Image getImageByName(String name) {
+        return getImages().stream().filter(value -> value.getName().equalsIgnoreCase(name))
+                .findFirst().orElseThrow(() -> new DataNotFoundException("Image with name: "
+                        + name + " doesn't exist"));
     }
 }

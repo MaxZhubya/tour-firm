@@ -30,12 +30,12 @@ public class Country {
     private String name;
 
     @NotNull
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "country_enterType",
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "country_enter_type",
             joinColumns = {
                 @JoinColumn(name = "country_id", referencedColumnName = "id")},
             inverseJoinColumns = {
-                @JoinColumn(name = "enterType_id", referencedColumnName = "id")
+                @JoinColumn(name = "enter_type_id", referencedColumnName = "id")
     })
     private List<EntranceType> enterTypes = new ArrayList<>();
 

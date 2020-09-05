@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "resortCities")
+@Table(name = "resort_cities")
 public class ResortCity {
 
     private static final long serialVersionUID = -7689765126368098L;
@@ -35,22 +35,22 @@ public class ResortCity {
     private Boolean isAbleForEntering;
 
     @NotNull
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "resortCity_enterType",
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "resort_city_enter_type",
             joinColumns = {
                     @JoinColumn(name = "city_id", referencedColumnName = "id")},
             inverseJoinColumns = {
-                    @JoinColumn(name = "enterType_id", referencedColumnName = "id")
+                    @JoinColumn(name = "enter_type_id", referencedColumnName = "id")
             })
     private List<EntranceType> enterTypes = new ArrayList<>();
 
     @NotNull
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "resortCity_travelType",
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "resort_city_travel_type",
             joinColumns = {
                     @JoinColumn(name = "country_id", referencedColumnName = "id")},
             inverseJoinColumns = {
-                    @JoinColumn(name = "travelType_id", referencedColumnName = "id")
+                    @JoinColumn(name = "travel_type_id", referencedColumnName = "id")
             })
     private List<TravelingType> travelingTypes = new ArrayList<>();
 

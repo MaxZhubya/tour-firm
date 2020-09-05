@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -36,8 +37,9 @@ public class CountryServiceImpl implements ICountryService {
     @Override
     @Transactional(readOnly = true)
     public List<CountryDTO> getAll() {
-        return repository.findByOrderByIdAsc().stream()
-                .map(CountryDTO::makeDTO).collect(Collectors.toList());
+        List<CountryDTO> countryDTOList = new ArrayList<>();
+        repository.findByOrderByIdAsc().forEach(value -> countryDTOList.add(CountryDTO.makeDTO(value)));
+        return countryDTOList;
     }
 
     @Override

@@ -1,7 +1,13 @@
 package com.summer.tourfirm.entity;
 
+import com.summer.tourfirm.exception.DataNotFoundException;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,6 +23,10 @@ public class Apartment {
     @ManyToOne
     @JoinColumn(name = "building_id", referencedColumnName = "id")
     private LiveBuilding building;
+
+    @NotNull
+    @OneToMany(mappedBy = "apartment", cascade = CascadeType.ALL)
+    private List<ReservedApartment> reservedApartments = new ArrayList<>();
 
     @NotEmpty
     private String number;
@@ -54,6 +64,15 @@ public class Apartment {
 
     public Apartment setBuilding(LiveBuilding building) {
         this.building = building;
+        return this;
+    }
+
+    public List<ReservedApartment> getReservedApartments() {
+        return reservedApartments;
+    }
+
+    public Apartment setReservedApartments(List<ReservedApartment> reservedApartments) {
+        this.reservedApartments = reservedApartments;
         return this;
     }
 
@@ -113,5 +132,12 @@ public class Apartment {
     @Override
     public int hashCode() {
         return Objects.hash(getId());
+    }
+
+    public ReservedApartment getReservedApartmentById(LocalDateTime dateIn) {
+//        getReservedApartments().stream().filter(value -> value.getId().equalsIgnoreCase())
+//                .findFirst().orElseThrow(() -> new DataNotFoundException("Image with name: "
+//                + id + " doesn't exist"));
+        return null;
     }
 }

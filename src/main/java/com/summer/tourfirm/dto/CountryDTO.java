@@ -33,7 +33,7 @@ public class CountryDTO {
 
     @JsonInclude(NON_NULL)
     @JsonProperty("enterTypes")
-    private List<EntranceType> enterTypes = new ArrayList<>();
+    private List<EntranceTypeDTO> enterTypes = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -71,11 +71,11 @@ public class CountryDTO {
         return this;
     }
 
-    public List<EntranceType> getEnterTypes() {
+    public List<EntranceTypeDTO> getEnterTypes() {
         return enterTypes;
     }
 
-    public CountryDTO setEnterTypes(List<EntranceType> enterTypes) {
+    public CountryDTO setEnterTypes(List<EntranceTypeDTO> enterTypes) {
         this.enterTypes = enterTypes;
         return this;
     }
@@ -87,7 +87,8 @@ public class CountryDTO {
                 .setName(country.getName())
 
                 // Массив enum
-                .setEnterTypes(country.getEnterTypes())
+                .setEnterTypes(country.getEnterTypes().stream()
+                    .map(EntranceTypeDTO::makeSimpleDTO).collect(Collectors.toList()))
 
                 .setCities(country.getCities().stream()
                     .map(ResortCityDTO::makeSimpleDTO).collect(Collectors.toList()));
@@ -98,7 +99,8 @@ public class CountryDTO {
                 .setId(country.getId())
                 .setIsAbleForEntering(country.isAbleForEntering())
                 .setName(country.getName())
-                .setEnterTypes(country.getEnterTypes()) : null;
+                .setEnterTypes(country.getEnterTypes().stream()
+                        .map(EntranceTypeDTO::makeSimpleDTO).collect(Collectors.toList())) : null;
     }
 
 }

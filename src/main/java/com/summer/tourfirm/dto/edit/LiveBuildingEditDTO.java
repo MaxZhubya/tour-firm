@@ -25,8 +25,8 @@ public class LiveBuildingEditDTO {
     @JsonProperty("address")
     private String address;
 
-//    @JsonProperty("availableApartmentCount")
-//    private Integer availableApartmentCount;
+    @JsonProperty("name")
+    private String name;
 
     @JsonProperty("ifPoolExist")
     private Boolean ifPoolExist;
@@ -77,7 +77,15 @@ public class LiveBuildingEditDTO {
         this.address = address;
     }
 
-//    public Integer getAvailableApartmentCount() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    //    public Integer getAvailableApartmentCount() {
 //        return availableApartmentCount;
 //    }
 //

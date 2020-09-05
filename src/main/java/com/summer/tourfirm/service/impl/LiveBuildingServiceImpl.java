@@ -24,9 +24,6 @@ import java.util.stream.Collectors;
 public class LiveBuildingServiceImpl implements ILiveBuildingService {
 
     @Autowired
-    private IApartmentService apartmentService;
-
-    @Autowired
     private IResortAreaService areaService;
 
     @Autowired
@@ -110,6 +107,7 @@ public class LiveBuildingServiceImpl implements ILiveBuildingService {
         building.setType(buildingEditDTO.getType())
             .setNumber(buildingEditDTO.getNumber())
             .setAddress(buildingEditDTO.getAddress())
+            .setName(buildingEditDTO.getName())
             .setIfPoolExist(buildingEditDTO.getIfPoolExist())
             .setIfParkingExist(buildingEditDTO.getIfParkingExist())
             .setDistanceToBeach(buildingEditDTO.getDistanceToBeach());
