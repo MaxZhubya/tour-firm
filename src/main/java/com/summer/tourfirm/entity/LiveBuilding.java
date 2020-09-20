@@ -45,8 +45,6 @@ public class LiveBuilding {
     @NotEmpty
     private String name;
 
-    private Integer availableApartmentCount;
-
     private Boolean ifPoolExist;
 
     private Boolean ifParkingExist;
@@ -122,15 +120,6 @@ public class LiveBuilding {
 
     public LiveBuilding setName(String name) {
         this.name = name;
-        return this;
-    }
-
-    public Integer getAvailableApartmentCount() {
-        return availableApartmentCount;
-    }
-
-    public LiveBuilding setAvailableApartmentCount(int availableApartmentCount) {
-        this.availableApartmentCount = availableApartmentCount;
         return this;
     }
 

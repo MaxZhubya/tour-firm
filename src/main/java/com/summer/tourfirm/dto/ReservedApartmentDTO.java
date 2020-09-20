@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.summer.tourfirm.entity.ReservedApartment;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
@@ -23,12 +23,12 @@ public class ReservedApartmentDTO {
     @JsonInclude(NON_NULL)
     @JsonFormat(pattern="yyyy-MM-dd")
     @JsonProperty("date_in")
-    private LocalDateTime dateIn;
+    private ZonedDateTime dateIn;
 
     @JsonInclude(NON_NULL)
     @JsonFormat(pattern="yyyy-MM-dd")
     @JsonProperty("date_out")
-    private LocalDateTime dateOut;
+    private ZonedDateTime dateOut;
 
     public Long getId() {
         return id;
@@ -48,20 +48,20 @@ public class ReservedApartmentDTO {
         return this;
     }
 
-    public LocalDateTime getDateIn() {
+    public ZonedDateTime getDateIn() {
         return dateIn;
     }
 
-    public ReservedApartmentDTO setDateIn(LocalDateTime dateIn) {
+    public ReservedApartmentDTO setDateIn(ZonedDateTime dateIn) {
         this.dateIn = dateIn;
         return this;
     }
 
-    public LocalDateTime getDateOut() {
+    public ZonedDateTime getDateOut() {
         return dateOut;
     }
 
-    public ReservedApartmentDTO setDateOut(LocalDateTime dateOut) {
+    public ReservedApartmentDTO setDateOut(ZonedDateTime dateOut) {
         this.dateOut = dateOut;
         return this;
     }

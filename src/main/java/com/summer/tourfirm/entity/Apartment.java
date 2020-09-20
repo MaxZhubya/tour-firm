@@ -1,7 +1,5 @@
 package com.summer.tourfirm.entity;
 
-import com.summer.tourfirm.exception.DataNotFoundException;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

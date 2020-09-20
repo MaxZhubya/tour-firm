@@ -1,22 +1,24 @@
 package com.summer.tourfirm.service.impl;
 
+import com.summer.tourfirm.dto.ApartmentDTO;
+import com.summer.tourfirm.dto.FilterDTO;
 import com.summer.tourfirm.dto.LiveBuildingDTO;
 import com.summer.tourfirm.dto.edit.LiveBuildingEditDTO;
-import com.summer.tourfirm.entity.Apartment;
 import com.summer.tourfirm.entity.LiveBuilding;
 import com.summer.tourfirm.entity.ResortArea;
 import com.summer.tourfirm.exception.DataNotFoundException;
 import com.summer.tourfirm.exception.DataValidationException;
 import com.summer.tourfirm.repository.LiveBuildingRepository;
-import com.summer.tourfirm.service.IApartmentService;
 import com.summer.tourfirm.service.ILiveBuildingService;
 import com.summer.tourfirm.service.IResortAreaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,6 +44,34 @@ public class LiveBuildingServiceImpl implements ILiveBuildingService {
     @Transactional(readOnly = true)
     public List<LiveBuildingDTO> getAll() {
         return repository.findByOrderByIdAsc().stream().map(LiveBuildingDTO::makeDTO).collect(Collectors.toList());
+    }
+
+
+    private static Predicate<ApartmentDTO> isApartmentFree(ZonedDateTime dateIn, ZonedDateTime dateOut) {
+        return p -> p.getReservedApartments().stream().noneMatch(value ->
+                ((dateIn.isEqual(value.getDateIn()) || (dateIn.isAfter(value.getDateIn()) && dateIn.isBefore(value.getDateOut())))
+                    || (dateOut.isAfter(value.getDateIn()) && (dateOut.isBefore(value.getDateOut()) || dateOut.isEqual(value.getDateOut()))))
+        );
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<LiveBuildingDTO> getAllByFilter(FilterDTO filterDTO) {
+        List<LiveBuildingDTO> liveBuildingDTOList = repository.findAllByFilter(filterDTO.getCountry(), filterDTO.getCity())
+                .stream().map(LiveBuildingDTO::makeDTO).collect(Collectors.toList());
+
+        for (LiveBuildingDTO liveBuildingDTO: liveBuildingDTOList) {
+            List<ApartmentDTO> apartmentDTOList = liveBuildingDTO.getApartments()
+                    .stream()
+                    .filter(isApartmentFree(filterDTO.getDataIn(), filterDTO.getDataOut()))
+                    .collect(Collectors.toList());
+            liveBuildingDTO.setApartments(apartmentDTOList);
+        }
+
+        return liveBuildingDTOList
+                .stream()
+                .filter(value -> value.getApartments().size() > 0)
+                .collect(Collectors.toList());
     }
 
 

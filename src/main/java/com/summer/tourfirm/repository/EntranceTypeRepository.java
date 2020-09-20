@@ -11,4 +11,5 @@ public interface EntranceTypeRepository extends JpaRepository<EntranceType, Long
 
     List<EntranceType> findByOrderByIdAsc();
     List<EntranceType> getByIdIn(List<Long> ids);
+    EntranceType findByType(String type);
 }

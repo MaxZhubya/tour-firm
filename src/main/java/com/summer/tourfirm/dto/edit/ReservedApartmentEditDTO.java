@@ -2,20 +2,25 @@ package com.summer.tourfirm.dto.edit;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
+import java.time.ZonedDateTime;
 
 public class ReservedApartmentEditDTO {
 
     @JsonProperty("id")
     private Long id;
 
+    @NotNull
     @JsonProperty("apartmentId")
     private Long apartmentId;
 
-    @JsonProperty("date_in")
-    private LocalDateTime dateIn;
-    @JsonProperty("date_out")
-    private LocalDateTime dateOut;
+    @NotNull
+    @JsonProperty("dateIn")
+    private ZonedDateTime dateIn;
+
+    @NotNull
+    @JsonProperty("dateOut")
+    private ZonedDateTime dateOut;
 
     public Long getId() {
         return id;
@@ -33,19 +38,19 @@ public class ReservedApartmentEditDTO {
         this.apartmentId = apartmentId;
     }
 
-    public LocalDateTime getDateIn() {
+    public ZonedDateTime getDateIn() {
         return dateIn;
     }
 
-    public void setDateIn(LocalDateTime dateIn) {
+    public void setDateIn(ZonedDateTime dateIn) {
         this.dateIn = dateIn;
     }
 
-    public LocalDateTime getDateOut() {
+    public ZonedDateTime getDateOut() {
         return dateOut;
     }
 
-    public void setDateOut(LocalDateTime dateOut) {
+    public void setDateOut(ZonedDateTime dateOut) {
         this.dateOut = dateOut;
     }
 }

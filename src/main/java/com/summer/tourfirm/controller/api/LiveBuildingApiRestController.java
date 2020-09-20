@@ -1,5 +1,6 @@
 package com.summer.tourfirm.controller.api;
 
+import com.summer.tourfirm.dto.FilterDTO;
 import com.summer.tourfirm.dto.LiveBuildingDTO;
 import com.summer.tourfirm.dto.edit.LiveBuildingEditDTO;
 import com.summer.tourfirm.service.ILiveBuildingService;
@@ -42,5 +43,10 @@ public class LiveBuildingApiRestController {
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         liveBuildingService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/filter")
+    public ResponseEntity<List<LiveBuildingDTO>> getAllByFilter(@RequestBody @Valid FilterDTO filterDTO) {
+        return new ResponseEntity<>(liveBuildingService.getAllByFilter(filterDTO), HttpStatus.OK);
     }
 }

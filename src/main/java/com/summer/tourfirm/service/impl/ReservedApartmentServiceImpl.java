@@ -51,8 +51,10 @@ public class ReservedApartmentServiceImpl implements IReservedApartmentService {
         reservedApartment.setApartment(apartment);
         apartment.getReservedApartments().add(reservedApartment);
         apartment = apartmentService.save(apartment);
-
-        return null;
+        return ReservedApartmentDTO.makeDTO(apartment.getReservedApartments()
+                .stream().sorted((value1, value2) -> Long.compare(value2.getId(), value1.getId()))
+                .findFirst().get()
+        );
     }
 
 

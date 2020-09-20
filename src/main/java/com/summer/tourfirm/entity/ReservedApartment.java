@@ -1,7 +1,7 @@
 package com.summer.tourfirm.entity;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 @Entity
@@ -18,14 +18,14 @@ public class ReservedApartment {
     @JoinColumn(name = "apartment_id", referencedColumnName = "id")
     private Apartment apartment;
 
-    private LocalDateTime dateIn;
+    private ZonedDateTime dateIn;
 
-    private LocalDateTime dateOut;
+    private ZonedDateTime dateOut;
 
     public ReservedApartment() {
     }
 
-    public ReservedApartment(LocalDateTime dateIn, LocalDateTime dateOut) {
+    public ReservedApartment(ZonedDateTime dateIn, ZonedDateTime dateOut) {
         this.dateIn = dateIn;
         this.dateOut = dateOut;
     }
@@ -48,20 +48,20 @@ public class ReservedApartment {
         return this;
     }
 
-    public LocalDateTime getDateIn() {
+    public ZonedDateTime getDateIn() {
         return dateIn;
     }
 
-    public ReservedApartment setDateIn(LocalDateTime dateIn) {
+    public ReservedApartment setDateIn(ZonedDateTime dateIn) {
         this.dateIn = dateIn;
         return this;
     }
 
-    public LocalDateTime getDateOut() {
+    public ZonedDateTime getDateOut() {
         return dateOut;
     }
 
-    public ReservedApartment setDateOut(LocalDateTime dateOut) {
+    public ReservedApartment setDateOut(ZonedDateTime dateOut) {
         this.dateOut = dateOut;
         return this;
     }

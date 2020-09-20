@@ -140,7 +140,10 @@ public class ApartmentDTO {
                 .setPrice(apartment.getPrice())
                 .setAmountOfBeds(apartment.getAmountOfBeds())
                 .setAmountOfRooms(apartment.getAmountOfRooms())
-                .setIfBathroomExist(apartment.isIfBathroomExist()) : null;
+                .setIfBathroomExist(apartment.isIfBathroomExist())
+                .setReservedApartments(apartment.getReservedApartments().stream()
+                        .map(ReservedApartmentDTO::makeSimpleDTO).collect(Collectors.toList()))
+                : null;
     }
 
 }

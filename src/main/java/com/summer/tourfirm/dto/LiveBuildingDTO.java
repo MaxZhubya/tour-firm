@@ -6,9 +6,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.summer.tourfirm.entity.Image;
 import com.summer.tourfirm.entity.LiveBuilding;
 import com.summer.tourfirm.entity.enums.BuildingEnum;
-import com.summer.tourfirm.entity.types.BuildingType;
 
-import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,10 +48,6 @@ public class LiveBuildingDTO {
     @JsonInclude(NON_EMPTY)
     @JsonProperty("name")
     private String name;
-
-    @JsonInclude(NON_NULL)
-    @JsonProperty("availableApartmentCount")
-    private Integer availableApartmentCount;
 
     @JsonInclude(NON_NULL)
     @JsonProperty("ifPoolExist")
@@ -139,15 +133,6 @@ public class LiveBuildingDTO {
         return this;
     }
 
-    public Integer getAvailableApartmentCount() {
-        return availableApartmentCount;
-    }
-
-    public LiveBuildingDTO setAvailableApartmentCount(Integer availableApartmentCount) {
-        this.availableApartmentCount = availableApartmentCount;
-        return this;
-    }
-
     public Boolean getIfPoolExist() {
         return ifPoolExist;
     }
@@ -182,7 +167,6 @@ public class LiveBuildingDTO {
                 .setNumber(building.getNumber())
                 .setAddress(building.getAddress())
                 .setName(building.getName())
-                .setAvailableApartmentCount(building.getAvailableApartmentCount())
                 .setIfPoolExist(building.isIfPoolExist())
                 .setIfParkingExist(building.isIfParkingExist())
                 .setDistanceToBeach(building.getDistanceToBeach())
@@ -203,7 +187,6 @@ public class LiveBuildingDTO {
                 .setNumber(building.getNumber())
                 .setAddress(building.getAddress())
                 .setName(building.getName())
-                .setAvailableApartmentCount(building.getAvailableApartmentCount())
                 .setIfPoolExist(building.isIfPoolExist())
                 .setIfParkingExist(building.isIfParkingExist())
                 .setDistanceToBeach(building.getDistanceToBeach()) : null;
