@@ -17,7 +17,7 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry
                 .addMapping("/api/**")
-                .allowedOrigins("http://localhost:4200")
+                .allowedOrigins("https://summer-practice-tour-firm-ui.herokuapp.com")
                 .allowedMethods("OPTIONAL", "GET", "POST", "PUT", "DELETE");
     }
 
