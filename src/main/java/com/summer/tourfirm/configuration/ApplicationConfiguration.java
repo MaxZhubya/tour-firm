@@ -16,15 +16,16 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry
-                .addMapping("/api/**")
+//                .addMapping("/api/**")
+                .addMapping("/**")
                 .allowedOrigins("*")
                 .allowedMethods("OPTIONAL", "GET", "POST", "PUT", "DELETE");
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("*.*")
-                .addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/static/","classpath:/assets/image/");
     }
 
     @Override
