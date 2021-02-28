@@ -10,9 +10,14 @@ import com.summer.tourfirm.repository.ApartmentRepository;
 import com.summer.tourfirm.service.IApartmentService;
 import com.summer.tourfirm.service.ILiveBuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -26,6 +31,23 @@ public class ApartmentServiceImpl implements IApartmentService {
 
     @Autowired
     private ApartmentRepository repository;
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ApartmentDTO> getAll(Integer page, Integer size) {
+
+        Pageable paging = PageRequest.of(page, size);
+
+        Page<Apartment> pageResult = repository.findAll(paging);
+
+        if (pageResult.hasContent()) {
+            return pageResult.getContent().stream()
+                    .map(ApartmentDTO::makeDTO).collect(Collectors.toList());
+        } else {
+            return new ArrayList<ApartmentDTO>();
+        }
+    }
 
 
     @Override

@@ -18,10 +18,24 @@ public class ApartmentApiRestController {
     @Autowired
     IApartmentService apartmentService;
 
+    /*-----------------------------*/
+
     @GetMapping("/list")
-    public ResponseEntity<List<ApartmentDTO>> getAll() {
-        return new ResponseEntity<>(apartmentService.getAll(), HttpStatus.OK);
+    public ResponseEntity<List<ApartmentDTO>> getAll(
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "5") Integer size) {
+
+        List<ApartmentDTO> apartmentDTOList = apartmentService.getAll(page, size);
+
+        return new ResponseEntity<>(apartmentDTOList, HttpStatus.OK);
     }
+
+    /*-----------------------------*/
+
+//    @GetMapping("/list")
+//    public ResponseEntity<List<ApartmentDTO>> getAll() {
+//        return new ResponseEntity<>(apartmentService.getAll(), HttpStatus.OK);
+//    }
 
     @GetMapping("/list/{id}")
     public ResponseEntity<ApartmentDTO> getById(@PathVariable("id") Long id) {
