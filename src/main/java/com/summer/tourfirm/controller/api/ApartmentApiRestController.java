@@ -18,7 +18,7 @@ public class ApartmentApiRestController {
     @Autowired
     IApartmentService apartmentService;
 
-    /*-----------------------------*/
+    /*------------------------------*/
 
     @GetMapping("/list")
     public ResponseEntity<List<ApartmentDTO>> getAll(
@@ -30,7 +30,7 @@ public class ApartmentApiRestController {
         return new ResponseEntity<>(apartmentDTOList, HttpStatus.OK);
     }
 
-    /*-----------------------------*/
+    /*------------------------------*/
 
 //    @GetMapping("/list")
 //    public ResponseEntity<List<ApartmentDTO>> getAll() {
