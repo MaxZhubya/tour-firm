@@ -19,9 +19,9 @@ spring:
     properties.hibernate.jdbc.lob.non_contextual_creation: true
 
 
-  flyway:
-    enabled: true
-    user: postgres
-    password: root
-    schemas: public
-    baseline-on-migrate: false
+#  flyway:
+#    enabled: false
+#    user: postgres
+#    password: root
+#    schemas: public
+#    baseline-on-migrate: false
