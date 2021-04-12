@@ -2,6 +2,7 @@ package com.summer.tourfirm.services;
 
 
 import com.summer.tourfirm.dto.CountryDTO;
+import com.summer.tourfirm.dto.edit.CountryEditDTO;
 import com.summer.tourfirm.entity.Country;
 import com.summer.tourfirm.exception.DataNotFoundException;
 import com.summer.tourfirm.repository.CountryRepository;
@@ -16,11 +17,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CountryServiceTest {
@@ -46,12 +49,75 @@ public class CountryServiceTest {
     }
 
     @Test
+    public void whenGetCountryById_thenReturnOneCountry() {
+        Country country = new Country()
+                .setId(1L)
+                .setAbleForEntering(false)
+                .setName("Temp Country For Tests");
+
+        CountryDTO countryDTO = CountryDTO.makeSimpleDTO(country);
+        when(repository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(country));
+
+        CountryDTO foundDTO = service.get(countryDTO.getId());
+
+        assertThat(foundDTO).isEqualToComparingFieldByField(countryDTO);
+    }
+
+    @Test
     public void whenGetCountryByIdIsNotExist_thenThrowDataNotFoundException() {
         when(repository.findById(anyLong())).thenThrow(DataNotFoundException.class);
         Exception exception = assertThrows(DataNotFoundException.class, () -> {
-            service.get(1l);
+            service.get(1L);
         });
 
     }
 
+    @Test
+    public void whenCreateCountry_thenReturnCountryDTO() {
+        CountryEditDTO countryEditDTO = new CountryEditDTO();
+        countryEditDTO.setName("Test Country Name");
+        countryEditDTO.setIsAbleForEntering(true);
+
+        Country country = new Country()
+                .setName(countryEditDTO.getName())
+                .setAbleForEntering(countryEditDTO.getIsAbleForEntering());
+
+        when(repository.save(any())).thenReturn(country);
+
+        CountryDTO countryDTO = service.create(countryEditDTO);
+
+        assertThat(countryDTO.getName()).isSameAs(countryEditDTO.getName());
+    }
+
+    @Test
+    public void whenUpdateCountry_thenReturnCountryDTO() {
+        CountryEditDTO countryEditDTO = new CountryEditDTO();
+        countryEditDTO.setId(1L);
+        countryEditDTO.setName("Test Country Name");
+        countryEditDTO.setIsAbleForEntering(true);
+
+        Country country = new Country()
+                .setName(countryEditDTO.getName())
+                .setAbleForEntering(countryEditDTO.getIsAbleForEntering());
+
+        when(repository.save(any())).thenReturn(country);
+
+        CountryDTO countryDTO = service.create(countryEditDTO);
+
+        assertThat(countryDTO.getName()).isSameAs(countryEditDTO.getName());
+    }
+
+    @Test
+    public void whenDeleteCountry_thenVoid() {
+        Country country = new Country()
+                .setId(1L)
+                .setName("Test Country Name")
+                .setAbleForEntering(true);
+
+        when(repository.findById(anyLong())).thenReturn(Optional.ofNullable(country));
+        doNothing().when(repository).delete(any());
+        service.delete(country.getId());
+
+        verify(repository).delete(any());
+    }
 }

@@ -1,5 +1,6 @@
 package com.summer.tourfirm.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.summer.tourfirm.dto.CountryDTO;
 import com.summer.tourfirm.dto.edit.CountryEditDTO;
 import com.summer.tourfirm.entity.Country;
@@ -17,16 +18,17 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CountryApiRestControllerIntegrationTest {
+public class CountryApiRestControllerTest {
 
     @Autowired
     private MockMvc mvc;
@@ -61,13 +63,12 @@ public class CountryApiRestControllerIntegrationTest {
 
         CountryDTO countryDTO = CountryDTO.makeSimpleDTO(country);
 
-        when(service.get(countryDTO.getId())).thenReturn(countryDTO);
+        when(service.get(anyLong())).thenReturn(countryDTO);
 
         mvc.perform(get("/api/country/list/{id}", 1L)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-//                .andExpect(jsonPath("$", hasSize(1)))
-//                .andExpect(jsonPath("$[0].name").value(countryDTO.getName()));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value(countryDTO.getName()));
     }
 
     @Test
@@ -91,9 +92,47 @@ public class CountryApiRestControllerIntegrationTest {
                 .setName(countryEditDTO.getName());
 
         CountryDTO countryDTO = CountryDTO.makeSimpleDTO(country);
+        when(service.create(any())).thenReturn(countryDTO);
 
-
-        when(service.create(countryEditDTO)).thenReturn(countryDTO);
+        mvc.perform(post("/api/country/add")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(countryEditDTO)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value(countryDTO.getName()));
     }
+
+    @Test
+    public void whenUpdateCountry_thenReturn200() throws Exception {
+        CountryEditDTO countryEditDTO = new CountryEditDTO();
+        countryEditDTO.setId(1L);
+        countryEditDTO.setIsAbleForEntering(true);
+        countryEditDTO.setName("Temp Country For Tests");
+
+
+        CountryDTO countryDTO = new CountryDTO()
+                .setId(countryEditDTO.getId())
+                .setIsAbleForEntering(countryEditDTO.getIsAbleForEntering())
+                .setName(countryEditDTO.getName());
+
+        when(service.update(any())).thenReturn(countryDTO);
+
+        mvc.perform(put("/api/country/edit")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(countryEditDTO)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value(countryDTO.getName()));
+    }
+
+    @Test
+    public void whenDeleteCountry_thenReturn200() throws Exception {
+        doNothing().when(service).delete(anyLong());
+        mvc.perform(delete("/api/country/delete/{id}", 1L)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    /*===  EntranceType Rest  ===*/
+
+
 
 }
