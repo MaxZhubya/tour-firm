@@ -117,10 +117,7 @@ public class ResortCityApiRestControllerTest {
                 .setName("name")
                 .setAbleForEntering(true);
 
-        CountryDTO countryDTO = new CountryDTO()
-                .setId(country.getId())
-                .setName(country.getName())
-                .setIsAbleForEntering(country.isAbleForEntering());
+        CountryDTO countryDTO = CountryDTO.makeSimpleDTO(country);
 
         ResortCityEditDTO resortCityEditDTO = new ResortCityEditDTO();
         resortCityEditDTO.setId(1L);

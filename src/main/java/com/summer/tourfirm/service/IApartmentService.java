@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IApartmentService {
 
-    List<ApartmentDTO> getAll(Integer page, Integer size);    // Read
+    // List<ApartmentDTO> getAll(Integer page, Integer size);    // Read
 
     ApartmentDTO get(Long id);      // Read
     List<ApartmentDTO> getAll();    // Read

@@ -32,7 +32,7 @@ public class ApartmentServiceImpl implements IApartmentService {
     @Autowired
     private ApartmentRepository repository;
 
-
+/*
     @Override
     @Transactional(readOnly = true)
     public List<ApartmentDTO> getAll(Integer page, Integer size) {
@@ -48,7 +48,7 @@ public class ApartmentServiceImpl implements IApartmentService {
             return new ArrayList<ApartmentDTO>();
         }
     }
-
+*/
 
     @Override
     @Transactional(readOnly = true)

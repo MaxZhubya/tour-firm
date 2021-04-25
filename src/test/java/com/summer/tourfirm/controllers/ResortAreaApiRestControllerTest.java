@@ -112,10 +112,7 @@ public class ResortAreaApiRestControllerTest {
                 .setName("name")
                 .setIsAbleForEntering(true);
 
-        ResortCityDTO resortCityDTO = new ResortCityDTO()
-                .setId(resortCity.getId())
-                .setName(resortCity.getName())
-                .setIsAbleForEntering(resortCity.getIsAbleForEntering());
+        ResortCityDTO resortCityDTO = ResortCityDTO.makeSimpleDTO(resortCity);
 
         ResortAreaEditDTO resortAreaEditDTO = new ResortAreaEditDTO();
         resortAreaEditDTO.setId(1L);

@@ -39,6 +39,7 @@ public class CountryServiceTest {
         Country country = new Country()
                 .setAbleForEntering(false)
                 .setName("Temp Country For Tests");
+
         CountryDTO countryDTO = CountryDTO.makeSimpleDTO(country);
         when(repository.findByOrderByIdAsc()).thenReturn(Arrays.asList(country));
 
@@ -97,12 +98,15 @@ public class CountryServiceTest {
         countryEditDTO.setIsAbleForEntering(true);
 
         Country country = new Country()
+                .setId(countryEditDTO.getId())
                 .setName(countryEditDTO.getName())
                 .setAbleForEntering(countryEditDTO.getIsAbleForEntering());
 
+        when(repository.findById(anyLong())).thenReturn(Optional.ofNullable(country));
+
         when(repository.save(any())).thenReturn(country);
 
-        CountryDTO countryDTO = service.create(countryEditDTO);
+        CountryDTO countryDTO = service.update(countryEditDTO);
 
         assertThat(countryDTO.getName()).isSameAs(countryEditDTO.getName());
     }

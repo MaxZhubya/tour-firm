@@ -104,7 +104,8 @@ public class LiveBuildingAliRestControllerTest {
         LiveBuilding liveBuilding = new LiveBuilding()
                 .setNumber(liveBuildingEditDTO.getNumber())
                 .setAddress(liveBuildingEditDTO.getAddress())
-                .setName(liveBuildingEditDTO.getName());
+                .setName(liveBuildingEditDTO.getName())
+                .setArea(resortArea);
 
         LiveBuildingDTO liveBuildingDTO = LiveBuildingDTO.makeSimpleDTO(liveBuilding);
         when(service.create(any())).thenReturn(liveBuildingDTO);
